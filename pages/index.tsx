@@ -18,13 +18,17 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="container mx-auto flex justify-center">
-        <div className="w-full">
+        <div className="flex w-full max-w-2xl items-center justify-center p-4">
           {!session ? (
-            <Auth
-              supabaseClient={supabase}
-              appearance={{ theme: ThemeSupa }}
-              theme="default"
-            />
+            <div className="w-full">
+              <Auth
+                supabaseClient={supabase}
+                appearance={{
+                  theme: ThemeSupa,
+                }}
+                theme="default"
+              />
+            </div>
           ) : (
             <Account session={session} />
           )}

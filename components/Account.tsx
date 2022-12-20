@@ -18,6 +18,7 @@ export default function Account({ session }: { session: Session }) {
 
   useEffect(() => {
     getProfile()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session])
 
   async function getProfile() {
@@ -81,7 +82,7 @@ export default function Account({ session }: { session: Session }) {
   }
 
   return (
-    <div className="form-widget">
+    <div className="flex w-full flex-col">
       {user ? (
         <Avatar
           uid={user.id}
@@ -94,12 +95,23 @@ export default function Account({ session }: { session: Session }) {
         />
       ) : null}
       <div>
-        <label htmlFor="email">Email</label>
-        <input id="email" type="text" value={session.user.email} disabled />
+        <label htmlFor="email" className="label">
+          <span className="label-text">Email</span>
+        </label>
+        <input
+          className="input-bordered input w-full"
+          id="email"
+          type="text"
+          value={session.user.email}
+          disabled
+        />
       </div>
       <div>
-        <label htmlFor="username">Username</label>
+        <label htmlFor="username" className="label">
+          <span className="label-text">Username</span>
+        </label>
         <input
+          className="input-bordered input w-full"
           id="username"
           type="text"
           value={username || ''}
@@ -107,8 +119,11 @@ export default function Account({ session }: { session: Session }) {
         />
       </div>
       <div>
-        <label htmlFor="website">Website</label>
+        <label htmlFor="website" className="label">
+          <span className="label-text">Website</span>
+        </label>
         <input
+          className="input-bordered input w-full"
           id="website"
           type="website"
           value={website || ''}
@@ -116,23 +131,24 @@ export default function Account({ session }: { session: Session }) {
         />
       </div>
 
-      <div>
-        <button
-          className="button primary block"
-          onClick={() => updateProfile({ username, website, avatar_url })}
-          disabled={loading}
-        >
-          {loading ? 'Loading ...' : 'Update'}
-        </button>
-      </div>
-
-      <div>
-        <button
-          className="button block"
-          onClick={() => supabase.auth.signOut()}
-        >
-          Sign Out
-        </button>
+      <div className="my-4 flex justify-end gap-x-2">
+        <div>
+          <button
+            className="btn-warning btn w-full"
+            onClick={() => supabase.auth.signOut()}
+          >
+            Sign Out
+          </button>
+        </div>
+        <div>
+          <button
+            className={`btn-accent btn w-full ${loading ? 'loading' : ''}`}
+            onClick={() => updateProfile({ username, website, avatar_url })}
+            disabled={loading}
+          >
+            {loading ? 'Loading ...' : 'Update'}
+          </button>
+        </div>
       </div>
     </div>
   )
