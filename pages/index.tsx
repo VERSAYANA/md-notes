@@ -1,6 +1,14 @@
 import Head from 'next/head'
 
+import { Auth, ThemeSupa } from '@supabase/auth-ui-react'
+import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
+import Account from '../components/Account'
+
 export default function Home() {
+  const session = useSession()
+  const supabase = useSupabaseClient()
+  console.log(session)
+
   return (
     <>
       <Head>
@@ -9,7 +17,19 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main></main>
+      <main className="container mx-auto flex justify-center">
+        <div className="w-full">
+          {!session ? (
+            <Auth
+              supabaseClient={supabase}
+              appearance={{ theme: ThemeSupa }}
+              theme="default"
+            />
+          ) : (
+            <Account session={session} />
+          )}
+        </div>
+      </main>
     </>
   )
 }
