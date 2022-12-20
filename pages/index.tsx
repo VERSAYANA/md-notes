@@ -17,7 +17,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="container mx-auto flex justify-center">
+      <div className="container mx-auto flex justify-center">
         <div className="flex w-full max-w-2xl items-center justify-center p-4">
           {!session ? (
             <div className="w-full">
@@ -33,7 +33,7 @@ export default function Home() {
             <Account session={session} />
           )}
         </div>
-      </main>
+      </div>
     </>
   )
 }
