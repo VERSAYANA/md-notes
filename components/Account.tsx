@@ -64,7 +64,7 @@ export default function Account({ session }: { session: Session }) {
 
       const updates = {
         id: user.id,
-        username,
+        username: username?.toLocaleLowerCase(),
         website,
         avatar_url,
         updated_at: new Date().toISOString(),
