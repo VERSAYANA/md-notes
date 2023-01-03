@@ -9,7 +9,7 @@ export default function Layout({ children }: Props) {
   return (
     <>
       <Navbar />
-      <main className="h-full">{children}</main>
+      <main className="flex flex-1 flex-col">{children}</main>
     </>
   )
 }
