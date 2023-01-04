@@ -43,7 +43,7 @@ function NewNote() {
       } catch (error) {
         console.log(error)
       } finally {
-        setIsLoading(true)
+        setIsLoading(false)
       }
     }
 
@@ -84,7 +84,7 @@ function NewNote() {
 
   if (!username) {
     return (
-      <div className="container mx-auto flex h-full items-center justify-center p-4">
+      <div className="container mx-auto flex flex-1 items-center justify-center p-4">
         <div className="flex w-full max-w-2xl items-end justify-center gap-2">
           <div className="flex-1">
             <label htmlFor="username" className="label">
@@ -116,7 +116,9 @@ function NewNote() {
 
   return (
     <div>
-      <h2>New Note</h2>
+      <input className="input-bordered input" placeholder="title" />
+      <button className="btn">Save</button>
+      <textarea placeholder="note" />
     </div>
   )
 }
