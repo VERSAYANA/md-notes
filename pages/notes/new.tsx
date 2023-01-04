@@ -49,7 +49,8 @@ function NewNote() {
     }
 
     getUsername()
-  }, [user, supabase])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user])
 
   useEffect(() => {
     if (!isLoading && !user) {

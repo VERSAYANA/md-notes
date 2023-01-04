@@ -3,6 +3,7 @@ import Head from 'next/head'
 import { Auth, ThemeSupa } from '@supabase/auth-ui-react'
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
 import Account from '../components/Account'
+import Notes from '../components/Notes'
 
 export default function Home() {
   const session = useSession()
@@ -18,7 +19,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="container mx-auto flex justify-center">
-        <div className="flex w-full max-w-2xl items-center justify-center p-4">
+        <div className="flex w-full max-w-4xl items-center justify-center p-4">
           {!session ? (
             <div className="w-full">
               <Auth
@@ -30,7 +31,7 @@ export default function Home() {
               />
             </div>
           ) : (
-            <Account session={session} />
+            <Notes />
           )}
         </div>
       </div>
