@@ -31,6 +31,7 @@ export interface Database {
           updated_at: string
           is_public: boolean
           content: string | null
+          title: string
         }
         Insert: {
           id?: string
@@ -39,6 +40,7 @@ export interface Database {
           updated_at?: string
           is_public?: boolean
           content?: string | null
+          title?: string
         }
         Update: {
           id?: string
@@ -47,6 +49,7 @@ export interface Database {
           updated_at?: string
           is_public?: boolean
           content?: string | null
+          title?: string
         }
       }
       profiles: {
