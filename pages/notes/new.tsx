@@ -8,6 +8,7 @@ import { Database } from '../../utils/database.types'
 import { useRouter } from 'next/router'
 
 type Profiles = Database['public']['Tables']['profiles']['Row']
+type Notes = Database['public']['Tables']['notes']['Row']
 
 function NewNote() {
   const user = useUser()
@@ -19,8 +20,8 @@ function NewNote() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
-  console.log(user)
-  console.log(session)
+  // console.log(user)
+  // console.log(session)
 
   useEffect(() => {
     async function getUsername() {
@@ -74,6 +75,28 @@ function NewNote() {
     }
   }
 
+  async function saveNote(content: Notes['content']) {
+    try {
+      setIsSubmitting(true)
+      if (!user) throw new Error('No user')
+
+      console.log(content)
+
+      let { error, data } = await supabase.from('notes').insert({
+        user_id: user.id,
+        content,
+      })
+
+      console.log(data)
+
+      if (error) throw error
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   if (isLoading) {
     return (
       <div className="flex w-full flex-1 items-center justify-center">
@@ -117,7 +140,9 @@ function NewNote() {
   return (
     <div>
       <input className="input-bordered input" placeholder="title" />
-      <button className="btn">Save</button>
+      <button onClick={() => saveNote('cool')} className="btn">
+        Save
+      </button>
       <textarea placeholder="note" />
     </div>
   )

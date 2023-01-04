@@ -9,6 +9,46 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      note_tags: {
+        Row: {
+          note_id: string
+          tag_id: string
+        }
+        Insert: {
+          note_id: string
+          tag_id: string
+        }
+        Update: {
+          note_id?: string
+          tag_id?: string
+        }
+      }
+      notes: {
+        Row: {
+          id: string
+          user_id: string
+          created_at: string
+          updated_at: string
+          is_public: boolean
+          content: string | null
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          created_at?: string
+          updated_at?: string
+          is_public?: boolean
+          content?: string | null
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          created_at?: string
+          updated_at?: string
+          is_public?: boolean
+          content?: string | null
+        }
+      }
       profiles: {
         Row: {
           id: string
@@ -17,6 +57,7 @@ export interface Database {
           full_name: string | null
           avatar_url: string | null
           website: string | null
+          created_at: string | null
         }
         Insert: {
           id: string
@@ -25,6 +66,7 @@ export interface Database {
           full_name?: string | null
           avatar_url?: string | null
           website?: string | null
+          created_at?: string | null
         }
         Update: {
           id?: string
@@ -33,6 +75,21 @@ export interface Database {
           full_name?: string | null
           avatar_url?: string | null
           website?: string | null
+          created_at?: string | null
+        }
+      }
+      tags: {
+        Row: {
+          id: string
+          name: string
+        }
+        Insert: {
+          id: string
+          name: string
+        }
+        Update: {
+          id?: string
+          name?: string
         }
       }
     }
