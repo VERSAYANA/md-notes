@@ -19,8 +19,9 @@ function NewNote() {
   const [usernameInputValue, setUsernameInputValue] = useState<string>('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
-
-  // console.log(user)
+  const [content, setContent] = useState('')
+  const [title, setTitle] = useState('')
+  console.log(content)
   // console.log(session)
 
   useEffect(() => {
@@ -56,7 +57,8 @@ function NewNote() {
     if (!isLoading && !user) {
       router.push('/auth')
     }
-  }, [isLoading, user, router])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user])
 
   async function submitUsername(username: Profiles['username']) {
     try {
@@ -76,7 +78,7 @@ function NewNote() {
     }
   }
 
-  async function saveNote(content: Notes['content']) {
+  async function saveNote(title: Notes['title'], content: Notes['content']) {
     try {
       setIsSubmitting(true)
       if (!user) throw new Error('No user')
@@ -86,6 +88,7 @@ function NewNote() {
       let { error, data } = await supabase.from('notes').insert({
         user_id: user.id,
         content,
+        title,
       })
 
       console.log(data)
@@ -98,13 +101,13 @@ function NewNote() {
     }
   }
 
-  if (isLoading) {
-    return (
-      <div className="flex w-full flex-1 items-center justify-center">
-        <p>Loading</p>
-      </div>
-    )
-  }
+  // if (isLoading) {
+  //   return (
+  //     <div className="flex w-full flex-1 items-center justify-center">
+  //       <p>Loading</p>
+  //     </div>
+  //   )
+  // }
 
   if (!username) {
     return (
@@ -139,12 +142,27 @@ function NewNote() {
   }
 
   return (
-    <div>
-      <input className="input-bordered input" placeholder="title" />
-      <button onClick={() => saveNote('cool')} className="btn">
-        Save
-      </button>
-      <textarea placeholder="note" />
+    <div className="container mx-auto flex flex-1 flex-col gap-y-4 p-4">
+      <div className="flex gap-x-4">
+        <input
+          className="input-bordered input flex-1"
+          placeholder="Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <button
+          onClick={() => saveNote(title, content)}
+          className="btn-accent btn"
+        >
+          Save
+        </button>
+      </div>
+      <textarea
+        onChange={(e) => setContent(e.target.value)}
+        value={content}
+        placeholder="Note"
+        className="textarea-bordered textarea flex-1"
+      />
     </div>
   )
 }
