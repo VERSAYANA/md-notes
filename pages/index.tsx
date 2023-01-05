@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { Auth, ThemeSupa } from '@supabase/auth-ui-react'
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
 import Account from '../components/Account'
-import Notes from '../components/Notes'
+import Notes from '../components/UserNotes'
 
 export default function Home() {
   const session = useSession()
