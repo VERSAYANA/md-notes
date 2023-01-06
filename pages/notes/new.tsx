@@ -78,13 +78,22 @@ function NewNote() {
     try {
       setIsSaving(true)
       if (!user) throw new Error('No user')
-      let { error, data } = await supabase.from('notes').insert({
-        user_id: user.id,
-        content,
-        title,
-      })
+      let { error, data } = await supabase
+        .from('notes')
+        .insert({
+          user_id: user.id,
+          content,
+          title,
+        })
+        .select()
+        .single()
 
-      if (error) throw error
+      if (error) {
+        throw error
+      }
+      if (data) {
+        router.push(`/notes/${data.id}`)
+      }
     } catch (error) {
       console.log(error)
     } finally {
