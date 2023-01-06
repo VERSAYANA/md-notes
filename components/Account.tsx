@@ -10,44 +10,45 @@ type Profiles = Database['public']['Tables']['profiles']['Row']
 
 export default function Account({ session }: { session: Session }) {
   const supabase = useSupabaseClient<Database>()
-  const user = useUser()
+  const { user } = session
   const [loading, setLoading] = useState(true)
   const [username, setUsername] = useState<Profiles['username']>(null)
   const [website, setWebsite] = useState<Profiles['website']>(null)
   const [avatar_url, setAvatarUrl] = useState<Profiles['avatar_url']>(null)
 
   useEffect(() => {
-    getProfile()
+    async function getProfile() {
+      try {
+        setLoading(true)
+        if (!user) throw new Error('No user')
+
+        let { data, error, status } = await supabase
+          .from('profiles')
+          .select(`username, website, avatar_url`)
+          .eq('id', user.id)
+          .single()
+
+        if (error && status !== 406) {
+          throw error
+        }
+
+        if (data) {
+          setUsername(data.username)
+          setWebsite(data.website)
+          setAvatarUrl(data.avatar_url)
+        }
+      } catch (error) {
+        alert('Error loading user data!')
+        console.log(error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    if (user) {
+      getProfile()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session])
-
-  async function getProfile() {
-    try {
-      setLoading(true)
-      if (!user) throw new Error('No user')
-
-      let { data, error, status } = await supabase
-        .from('profiles')
-        .select(`username, website, avatar_url`)
-        .eq('id', user.id)
-        .single()
-
-      if (error && status !== 406) {
-        throw error
-      }
-
-      if (data) {
-        setUsername(data.username)
-        setWebsite(data.website)
-        setAvatarUrl(data.avatar_url)
-      }
-    } catch (error) {
-      alert('Error loading user data!')
-      console.log(error)
-    } finally {
-      setLoading(false)
-    }
-  }
 
   async function updateProfile({
     username,

@@ -61,8 +61,6 @@ function Notes({ id }: Props) {
     }
   }
 
-  console.log(note)
-
   return (
     <div className="container mx-auto flex w-full flex-1 flex-col p-4">
       {note ? (

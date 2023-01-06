@@ -7,7 +7,6 @@ function Profile() {
   const session = useSession()
   const supabase = useSupabaseClient()
   const router = useRouter()
-  console.log(session)
 
   useEffect(() => {
     async function getUser() {

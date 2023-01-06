@@ -11,7 +11,6 @@ export default function Home() {
   const router = useRouter()
   const session = useSession()
   const supabase = useSupabaseClient()
-  console.log(session)
 
   useEffect(() => {
     async function getUsername() {

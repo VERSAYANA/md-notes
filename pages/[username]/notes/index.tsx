@@ -13,14 +13,11 @@ function UserNotesPage() {
   const supabase = useSupabaseClient<Database>()
   const [notes, setNotes] = useState<UserNoteSummary[]>([])
   const [userId, setUserId] = useState<Profiles['id']>()
-  console.log(username)
-  console.log(userId)
 
   useEffect(() => {
     async function getUserId() {
       try {
         setIsLoading(true)
-
         let { data, error, status } = await supabase
           .from('profiles')
           .select(`id`)
@@ -41,7 +38,9 @@ function UserNotesPage() {
       }
     }
 
-    getUserId()
+    if (username) {
+      getUserId()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username])
 
@@ -67,8 +66,9 @@ function UserNotesPage() {
         setIsLoading(false)
       }
     }
-
-    getNotes()
+    if (userId) {
+      getNotes()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId])
 

@@ -13,10 +13,6 @@ function Navbar() {
   const [avatarUrl, setAvatarUrl] = useState<Profiles['avatar_url']>(null)
   const [loading, setLoading] = useState(true)
 
-  const signIn = () => {
-    console.log('sign in')
-  }
-
   useEffect(() => {
     async function getProfile() {
       try {
@@ -43,8 +39,9 @@ function Navbar() {
         setLoading(false)
       }
     }
-
-    getProfile()
+    if (user) {
+      getProfile()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
 

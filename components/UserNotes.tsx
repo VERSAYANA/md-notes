@@ -10,8 +10,6 @@ type Props = {
 }
 
 function Notes({ notes }: Props) {
-  console.log(notes)
-
   return (
     <div className="container mx-auto flex w-full max-w-5xl flex-1 flex-col gap-y-8">
       {notes.map((note) => (

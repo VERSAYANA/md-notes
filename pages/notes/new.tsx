@@ -44,8 +44,9 @@ function NewNote() {
         setIsLoading(false)
       }
     }
-
-    getUsername()
+    if (user) {
+      getUsername()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
