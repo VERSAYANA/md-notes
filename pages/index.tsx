@@ -4,11 +4,41 @@ import { Auth, ThemeSupa } from '@supabase/auth-ui-react'
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
 import Account from '../components/Account'
 import Notes from '../components/UserNotes'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 export default function Home() {
+  const router = useRouter()
   const session = useSession()
   const supabase = useSupabaseClient()
   console.log(session)
+
+  useEffect(() => {
+    async function getUsername() {
+      try {
+        if (!session?.user) throw new Error('No user')
+
+        let { data, error, status } = await supabase
+          .from('profiles')
+          .select(`username`)
+          .eq('id', session?.user.id)
+          .single()
+
+        if (error && status !== 406) {
+          throw error
+        }
+        if (data) {
+          router.push(`/${data.username}/notes`)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    if (session?.user) {
+      getUsername()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session])
 
   return (
     <>
