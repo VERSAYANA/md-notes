@@ -30,9 +30,7 @@ export default function Home() {
                 theme="default"
               />
             </div>
-          ) : (
-            <Notes />
-          )}
+          ) : null}
         </div>
       </div>
     </>

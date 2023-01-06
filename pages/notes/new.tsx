@@ -101,13 +101,13 @@ function NewNote() {
     }
   }
 
-  // if (isLoading) {
-  //   return (
-  //     <div className="flex w-full flex-1 items-center justify-center">
-  //       <p>Loading</p>
-  //     </div>
-  //   )
-  // }
+  if (isLoading) {
+    return (
+      <div className="flex w-full flex-1 items-center justify-center">
+        <p>Loading</p>
+      </div>
+    )
+  }
 
   if (!username) {
     return (

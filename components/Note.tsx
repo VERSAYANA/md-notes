@@ -1,4 +1,5 @@
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { Database } from '../utils/database.types'
 type Notes = Database['public']['Tables']['notes']['Row']
@@ -17,7 +18,6 @@ function Notes({ id }: Props) {
     async function getNotes() {
       try {
         setIsLoading(true)
-        if (!user) throw new Error('No user')
         let { data, error, status } = await supabase
           .from('notes')
           .select(`*`)
@@ -40,15 +40,22 @@ function Notes({ id }: Props) {
 
     getNotes()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, id])
+  }, [id])
 
   console.log(note)
 
   return (
-    <div className="container mx-auto flex w-full flex-1 flex-col">
+    <div className="container mx-auto flex w-full flex-1 flex-col p-4">
       {note ? (
         <div className="flex flex-col">
-          <h2 className="text-xl font-bold">{note.title}</h2>
+          <div className="mb-6 flex items-center justify-between">
+            <h2 className="text-xl font-bold">{note.title}</h2>
+            {user ? (
+              <Link href={`${id}/edit`} className="btn">
+                Edit
+              </Link>
+            ) : null}
+          </div>
           <p>{note.content}</p>
           <p>{new Date(note.updated_at).toLocaleDateString()}</p>
         </div>

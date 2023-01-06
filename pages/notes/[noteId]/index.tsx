@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import Note from '../../components/Note'
+import Note from '../../../components/Note'
 
 function NotePage() {
   const router = useRouter()
