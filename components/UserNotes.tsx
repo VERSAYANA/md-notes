@@ -4,11 +4,18 @@ import { useEffect, useState } from 'react'
 import { Database } from '../utils/database.types'
 type Notes = Database['public']['Tables']['notes']['Row']
 
+type UserNoteSummary = {
+  id: string
+  title: string
+  updated_at: string
+  is_public: boolean
+}
+
 function Notes() {
   const user = useUser()
   const [isLoading, setIsLoading] = useState(true)
   const supabase = useSupabaseClient<Database>()
-  const [notes, setNotes] = useState<Notes[]>([])
+  const [notes, setNotes] = useState<UserNoteSummary[]>([])
 
   useEffect(() => {
     async function getNotes() {
@@ -17,7 +24,7 @@ function Notes() {
         if (!user) throw new Error('No user')
         let { data, error, status } = await supabase
           .from('notes')
-          .select(`*`)
+          .select(`id, updated_at, title, is_public`)
           .eq('user_id', user.id)
 
         if (error && status !== 406) {
@@ -41,15 +48,24 @@ function Notes() {
   console.log(notes)
 
   return (
-    <div className="container mx-auto flex w-full flex-1 flex-col">
+    <div className="container mx-auto flex w-full flex-1 flex-col gap-y-8">
       {notes.map((note) => (
-        <div key={note.id} className="flex flex-col">
-          <h2>{note.title}</h2>
-          <p>{note.content}</p>
-          <p>{note.updated_at}</p>
-          <Link target={'_blank'} href={`/notes/${note.id}`}>
-            Open note
-          </Link>
+        <div
+          key={note.id}
+          className="flex flex-col rounded-lg bg-base-100 p-4 shadow-md"
+        >
+          <h2 className="text-xl font-bold">{note.title}</h2>
+          {/* <p>{note.content}</p> */}
+          <p>{new Date(note.updated_at).toLocaleDateString()}</p>
+          <div className="flex justify-end">
+            <Link
+              className="btn flex"
+              target={'_blank'}
+              href={`/notes/${note.id}`}
+            >
+              Open note
+            </Link>
+          </div>
         </div>
       ))}
     </div>
