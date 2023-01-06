@@ -62,7 +62,7 @@ function Notes({ id }: Props) {
   }
 
   return (
-    <div className="container mx-auto flex w-full flex-1 flex-col p-4">
+    <div className="container mx-auto flex w-full flex-1 flex-col p-4 pt-8">
       {note ? (
         <div className="flex flex-col">
           <div className="mb-6 flex items-center justify-between">
