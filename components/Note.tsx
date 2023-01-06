@@ -1,5 +1,6 @@
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { Database } from '../utils/database.types'
 type Notes = Database['public']['Tables']['notes']['Row']
@@ -10,7 +11,9 @@ type Props = {
 
 function Notes({ id }: Props) {
   const user = useUser()
+  const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
+  const [isDeleting, setIsDeleting] = useState(false)
   const supabase = useSupabaseClient<Database>()
   const [note, setNote] = useState<Notes>()
 
@@ -42,6 +45,22 @@ function Notes({ id }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
 
+  async function deleteNote() {
+    try {
+      setIsDeleting(true)
+      const { error } = await supabase.from('notes').delete().eq('id', id)
+      if (error) {
+        throw error
+      } else {
+        router.push('/')
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsDeleting(false)
+    }
+  }
+
   console.log(note)
 
   return (
@@ -51,9 +70,14 @@ function Notes({ id }: Props) {
           <div className="mb-6 flex items-center justify-between">
             <h2 className="text-xl font-bold">{note.title}</h2>
             {user ? (
-              <Link href={`${id}/edit`} className="btn">
-                Edit
-              </Link>
+              <div className="flex items-center gap-x-2">
+                <button onClick={() => deleteNote()} className="btn-error btn">
+                  Delete
+                </button>
+                <Link href={`${id}/edit`} className="btn">
+                  Edit
+                </Link>
+              </div>
             ) : null}
           </div>
           <p>{note.content}</p>
