@@ -8,11 +8,31 @@ interface EditNoteFormInput {
 type Props = {
   title?: string
   content?: string
+  isLoading?: boolean
+  isSaving: boolean
+  saveNote(title: string, content: string): Promise<void>
 }
 
-function EditNote({ title = '', content = '' }: Props) {
+function EditNote({
+  title = '',
+  content = '',
+  isLoading = false,
+  isSaving = false,
+  saveNote,
+}: Props) {
   const { register, handleSubmit } = useForm<EditNoteFormInput>()
-  const onSubmit: SubmitHandler<EditNoteFormInput> = (data) => console.log(data)
+  const onSubmit: SubmitHandler<EditNoteFormInput> = (data) =>
+    saveNote(data.title, data.content)
+
+  console.log(isSaving)
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-1 items-center justify-center">
+        <p className="text-2xl">Loading...</p>
+      </div>
+    )
+  }
 
   return (
     <form
@@ -29,14 +49,16 @@ function EditNote({ title = '', content = '' }: Props) {
           />
         </div>
         <div className="flex">
-          <input type={'submit'} className="btn" value={'Save'} />
+          <button className={`btn ${isSaving ? 'loading' : ''}`} type="submit">
+            Save
+          </button>
         </div>
       </div>
       <div className="flex flex-1">
         <textarea
           defaultValue={content}
           {...register('content')}
-          className="textarea flex-1"
+          className="textarea flex-1 resize-none"
         />
       </div>
     </form>

@@ -6,23 +6,19 @@ import {
 import { useEffect, useState } from 'react'
 import { Database } from '../../utils/database.types'
 import { useRouter } from 'next/router'
+import EditNote from '../../components/EditNote'
 
 type Profiles = Database['public']['Tables']['profiles']['Row']
 type Notes = Database['public']['Tables']['notes']['Row']
 
 function NewNote() {
   const user = useUser()
-  const session = useSession()
   const supabase = useSupabaseClient<Database>()
   const router = useRouter()
   const [username, setUsername] = useState<Profiles['username']>(null)
   const [usernameInputValue, setUsernameInputValue] = useState<string>('')
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
-  const [content, setContent] = useState('')
-  const [title, setTitle] = useState('')
-  console.log(content)
-  // console.log(session)
 
   useEffect(() => {
     async function getUsername() {
@@ -51,7 +47,7 @@ function NewNote() {
 
     getUsername()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user])
+  }, [])
 
   useEffect(() => {
     if (!isLoading && !user) {
@@ -62,7 +58,7 @@ function NewNote() {
 
   async function submitUsername(username: Profiles['username']) {
     try {
-      setIsSubmitting(true)
+      setIsSaving(true)
       if (!user) throw new Error('No user')
 
       let { error } = await supabase
@@ -74,30 +70,25 @@ function NewNote() {
     } catch (error) {
       console.log(error)
     } finally {
-      setIsSubmitting(false)
+      setIsSaving(false)
     }
   }
 
   async function saveNote(title: Notes['title'], content: Notes['content']) {
     try {
-      setIsSubmitting(true)
+      setIsSaving(true)
       if (!user) throw new Error('No user')
-
-      console.log(content)
-
       let { error, data } = await supabase.from('notes').insert({
         user_id: user.id,
         content,
         title,
       })
 
-      console.log(data)
-
       if (error) throw error
     } catch (error) {
       console.log(error)
     } finally {
-      setIsSubmitting(false)
+      setIsSaving(false)
     }
   }
 
@@ -127,13 +118,11 @@ function NewNote() {
           </div>
           <div>
             <button
-              className={`btn-accent btn w-full ${
-                isSubmitting ? 'loading' : ''
-              }`}
+              className={`btn-accent btn w-full ${isSaving ? 'loading' : ''}`}
               onClick={() => submitUsername(usernameInputValue.toLowerCase())}
-              disabled={isSubmitting}
+              disabled={isSaving}
             >
-              {isSubmitting ? '' : 'Submit'}
+              {isSaving ? '' : 'Submit'}
             </button>
           </div>
         </div>
@@ -143,26 +132,7 @@ function NewNote() {
 
   return (
     <div className="container mx-auto flex flex-1 flex-col gap-y-4 p-4">
-      <div className="flex gap-x-4">
-        <input
-          className="input-bordered input flex-1"
-          placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <button
-          onClick={() => saveNote(title, content)}
-          className="btn-accent btn"
-        >
-          Save
-        </button>
-      </div>
-      <textarea
-        onChange={(e) => setContent(e.target.value)}
-        value={content}
-        placeholder="Note"
-        className="textarea-bordered textarea flex-1"
-      />
+      <EditNote saveNote={saveNote} isSaving={isSaving} />
     </div>
   )
 }
