@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 import { Database } from '../utils/database.types'
 import { ChevronDown, FilePlus, Home, Plus } from 'react-feather'
+import Avatar from './Avatar'
 type Profiles = Database['public']['Tables']['profiles']['Row']
 
 function Navbar() {
@@ -62,13 +63,9 @@ function Navbar() {
         <div className="flex items-center gap-4">
           <ChevronDown size={24} />
           {<span>{username ? username : 'Profile'}</span>}
-          {avatarUrl ? (
-            <img
-              src="avatarUrl"
-              className="h-10 w-10 rounded-full"
-              alt="Profile picture"
-            />
-          ) : null}
+          {/* {avatarUrl ? (
+            <Avatar url={a} />
+          ) : null} */}
         </div>
       </label>
 
@@ -82,7 +79,7 @@ function Navbar() {
           </li>
         ) : null}
         <li>
-          <Link href={`/`}>Edit Profile</Link>
+          <Link href={`/profile`}>Edit Profile</Link>
         </li>
         <li>
           <a onClick={() => supabase.auth.signOut()}>Logout</a>
