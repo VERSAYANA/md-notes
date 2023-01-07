@@ -14,7 +14,7 @@ function Notes({ notes }: Props) {
         <Link
           href={`/notes/${note.id}`}
           key={note.id}
-          className="flex flex-col rounded-lg bg-base-100 p-4 shadow"
+          className="flex flex-col rounded-lg bg-base-100 p-4 shadow hover:shadow-lg"
         >
           <h2 className="text-xl font-bold">{note.title}</h2>
           <p>{new Date(note.updated_at).toLocaleDateString()}</p>
