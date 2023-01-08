@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Eye, Lock } from 'react-feather'
 import { Database } from '../utils/database.types'
 import { UserNoteSummary } from '../utils/types'
 type Notes = Database['public']['Tables']['notes']['Row']
@@ -16,7 +17,10 @@ function Notes({ notes }: Props) {
           key={note.id}
           className="flex flex-col rounded-lg bg-base-100 p-4 shadow hover:shadow-lg"
         >
-          <h2 className="text-xl font-bold">{note.title}</h2>
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-bold">{note.title}</h2>
+            <div className="flex">{note.is_public ? <Eye /> : <Lock />}</div>
+          </div>
           <p>{new Date(note.updated_at).toLocaleDateString()}</p>
           <div className="flex justify-end">
             <button className="btn flex">Open note</button>
