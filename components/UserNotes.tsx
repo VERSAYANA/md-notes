@@ -19,9 +19,7 @@ function Notes({ notes }: Props) {
           <h2 className="text-xl font-bold">{note.title}</h2>
           <p>{new Date(note.updated_at).toLocaleDateString()}</p>
           <div className="flex justify-end">
-            <Link className="btn flex" href={`/notes/${note.id}`}>
-              Open note
-            </Link>
+            <button className="btn flex">Open note</button>
           </div>
         </Link>
       ))}

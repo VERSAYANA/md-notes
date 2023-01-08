@@ -43,42 +43,43 @@ function EditNote({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex w-full flex-1 flex-col gap-4"
+      className="flex w-full flex-1 flex-col gap-4 md:gap-8"
     >
       <div className="flex gap-4">
-        <div className="flex flex-1">
+        <div className="flex flex-1 flex-col gap-4 sm:flex-row">
           <input
             defaultValue={title}
             {...register('title', { required: true })}
-            className="input-bordered input flex-1"
+            className="input-bordered input min-h-12 flex-1"
             placeholder="Title"
           />
-        </div>
-        <div className="flex gap-2">
-          <div className="btn-group">
+          <div className="flex gap-4">
+            <div className="btn-group">
+              <button
+                type="button"
+                onClick={() => setIsPublicState(true)}
+                className={`btn ${isPublicState ? 'btn-active' : ''}`}
+              >
+                Public
+              </button>
+              <button
+                type="button"
+                onClick={() => setIsPublicState(false)}
+                className={`btn ${isPublicState ? '' : 'btn-active'}`}
+              >
+                Private
+              </button>
+            </div>
             <button
-              type="button"
-              onClick={() => setIsPublicState(true)}
-              className={`btn ${isPublicState ? 'btn-active' : ''}`}
+              type="submit"
+              className={`btn btn-accent flex-1 ${isSaving ? 'loading' : ''}`}
             >
-              Public
-            </button>
-            <button
-              type="button"
-              onClick={() => setIsPublicState(false)}
-              className={`btn ${isPublicState ? '' : 'btn-active'}`}
-            >
-              Private
+              Save
             </button>
           </div>
-          <button
-            type="submit"
-            className={`btn btn-accent ${isSaving ? 'loading' : ''}`}
-          >
-            Save
-          </button>
         </div>
       </div>
+
       <div className="flex flex-1">
         <textarea
           defaultValue={content}
