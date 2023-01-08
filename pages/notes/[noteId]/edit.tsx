@@ -37,19 +37,27 @@ function EditNotePage() {
       }
     }
 
-    getNote()
+    if (noteId) {
+      getNote()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [noteId])
 
-  async function saveNote(title: string, content: string) {
+  async function saveNote(
+    title: Note['title'],
+    content: Note['content'],
+    isPublic: Note['is_public']
+  ) {
     try {
       setIsSaving(true)
       if (!user) throw new Error('No user')
+      console.log(isPublic)
       const { data, error } = await supabase
         .from('notes')
         .update({
           title,
           content,
+          is_public: isPublic,
         })
         .eq('id', noteId)
 
@@ -66,6 +74,7 @@ function EditNotePage() {
       <EditNote
         title={note?.title ? note?.title : ''}
         content={note?.content ? note?.content : ''}
+        isPublic={note?.is_public ? note?.is_public : false}
         isLoading={isLoading}
         saveNote={saveNote}
         isSaving={isSaving}

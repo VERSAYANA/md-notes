@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 interface EditNoteFormInput {
@@ -10,19 +11,26 @@ type Props = {
   content?: string
   isLoading?: boolean
   isSaving: boolean
-  saveNote(title: string, content: string): Promise<void>
+  isPublic: boolean
+  saveNote(title: string, content: string, isPublic: boolean): Promise<void>
 }
 
 function EditNote({
   title = '',
   content = '',
+  isPublic,
   isLoading = false,
   isSaving = false,
   saveNote,
 }: Props) {
   const { register, handleSubmit } = useForm<EditNoteFormInput>()
+  const [isPublicState, setIsPublicState] = useState(isPublic)
   const onSubmit: SubmitHandler<EditNoteFormInput> = (data) =>
-    saveNote(data.title, data.content)
+    saveNote(data.title, data.content, isPublicState)
+
+  useEffect(() => {
+    setIsPublicState(isPublic)
+  }, [isPublic])
 
   if (isLoading) {
     return (
@@ -46,8 +54,27 @@ function EditNote({
             placeholder="Title"
           />
         </div>
-        <div className="flex">
-          <button className={`btn ${isSaving ? 'loading' : ''}`} type="submit">
+        <div className="flex gap-2">
+          <div className="btn-group">
+            <button
+              type="button"
+              onClick={() => setIsPublicState(true)}
+              className={`btn ${isPublicState ? 'btn-active' : ''}`}
+            >
+              Public
+            </button>
+            <button
+              type="button"
+              onClick={() => setIsPublicState(false)}
+              className={`btn ${isPublicState ? '' : 'btn-active'}`}
+            >
+              Private
+            </button>
+          </div>
+          <button
+            type="submit"
+            className={`btn btn-accent ${isSaving ? 'loading' : ''}`}
+          >
             Save
           </button>
         </div>

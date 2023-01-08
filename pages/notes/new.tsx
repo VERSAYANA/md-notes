@@ -75,7 +75,11 @@ function NewNote() {
     }
   }
 
-  async function saveNote(title: Notes['title'], content: Notes['content']) {
+  async function saveNote(
+    title: Notes['title'],
+    content: Notes['content'],
+    isPublic: Notes['is_public']
+  ) {
     try {
       setIsSaving(true)
       if (!user) throw new Error('No user')
@@ -85,6 +89,7 @@ function NewNote() {
           user_id: user.id,
           content,
           title,
+          is_public: isPublic,
         })
         .select()
         .single()
@@ -128,7 +133,7 @@ function NewNote() {
           </div>
           <div>
             <button
-              className={`btn-accent btn w-full ${isSaving ? 'loading' : ''}`}
+              className={`btn btn-accent w-full ${isSaving ? 'loading' : ''}`}
               onClick={() => submitUsername(usernameInputValue.toLowerCase())}
               disabled={isSaving}
             >
@@ -142,7 +147,7 @@ function NewNote() {
 
   return (
     <div className="container mx-auto flex flex-1 flex-col gap-y-4 p-4">
-      <EditNote saveNote={saveNote} isSaving={isSaving} />
+      <EditNote saveNote={saveNote} isSaving={isSaving} isPublic={false} />
     </div>
   )
 }
