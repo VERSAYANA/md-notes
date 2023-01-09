@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Eye, Lock } from 'react-feather'
 import { Database } from '../utils/database.types'
-import { UserNoteSummary } from '../utils/types'
+import type { UserNoteSummary } from '../utils/types'
 type Notes = Database['public']['Tables']['notes']['Row']
 
 type Props = {

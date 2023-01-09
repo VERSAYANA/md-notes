@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import Notes from '../../../components/UserNotes'
 import { Database } from '../../../utils/database.types'
-import { UserNoteSummary } from '../../../utils/types'
+import type { UserNoteSummary } from '../../../utils/types'
 type Profiles = Database['public']['Tables']['profiles']['Row']
 
 function UserNotesPage() {
