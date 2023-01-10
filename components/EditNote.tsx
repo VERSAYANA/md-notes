@@ -5,6 +5,7 @@ import gfm from '@bytemd/plugin-gfm'
 import highlight from '@bytemd/plugin-highlight-ssr'
 import math from '@bytemd/plugin-math-ssr'
 import breaks from '@bytemd/plugin-breaks'
+import gemoji from '@bytemd/plugin-gemoji'
 
 interface EditNoteFormInput {
   title: string
@@ -20,7 +21,16 @@ type Props = {
   saveNote(title: string, content: string, isPublic: boolean): Promise<void>
 }
 
-const plugins = [gfm(), highlight(), math(), breaks()]
+const plugins = [
+  gfm(),
+  highlight(),
+  math({
+    katexOptions: {
+      output: 'mathml',
+    },
+  }),
+  breaks(),
+]
 
 function EditNote({
   title = '',
@@ -35,7 +45,7 @@ function EditNote({
   const [contentInputValue, setContentInputValue] = useState('')
 
   const onSubmit: SubmitHandler<EditNoteFormInput> = (data) =>
-    saveNote(data.title, data.content, isPublicState)
+    saveNote(data.title, contentInputValue, isPublicState)
 
   useEffect(() => {
     setIsPublicState(isPublic)
