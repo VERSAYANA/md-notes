@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import gfm from '@bytemd/plugin-gfm'
 import { Editor, Viewer } from '@bytemd/react'
+import gfm from '@bytemd/plugin-gfm'
+import highlight from '@bytemd/plugin-highlight-ssr'
+import math from '@bytemd/plugin-math-ssr'
+import breaks from '@bytemd/plugin-breaks'
 
 interface EditNoteFormInput {
   title: string
@@ -17,10 +20,7 @@ type Props = {
   saveNote(title: string, content: string, isPublic: boolean): Promise<void>
 }
 
-const plugins = [
-  gfm(),
-  // Add more plugins here
-]
+const plugins = [gfm(), highlight(), math(), breaks()]
 
 function EditNote({
   title = '',
