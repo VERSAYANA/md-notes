@@ -5,6 +5,8 @@ import { useState } from 'react'
 
 import Layout from '../components/Layout'
 import '../styles/globals.css'
+import 'bytemd/dist/index.css'
+// import 'highlight.js/styles/default.css'
 
 export default function App({
   Component,

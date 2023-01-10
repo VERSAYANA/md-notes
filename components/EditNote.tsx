@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import gfm from '@bytemd/plugin-gfm'
+import { Editor, Viewer } from '@bytemd/react'
 
 interface EditNoteFormInput {
   title: string
@@ -15,6 +17,11 @@ type Props = {
   saveNote(title: string, content: string, isPublic: boolean): Promise<void>
 }
 
+const plugins = [
+  gfm(),
+  // Add more plugins here
+]
+
 function EditNote({
   title = '',
   content = '',
@@ -25,12 +32,26 @@ function EditNote({
 }: Props) {
   const { register, handleSubmit } = useForm<EditNoteFormInput>()
   const [isPublicState, setIsPublicState] = useState(isPublic)
+  const [contentInputValue, setContentInputValue] = useState('')
+
+  // console.log(contentInputValue)
+  // console.log(content)
+  // if (content) {
+  //   setContentInputValue(content)
+  // }
+
   const onSubmit: SubmitHandler<EditNoteFormInput> = (data) =>
     saveNote(data.title, data.content, isPublicState)
 
   useEffect(() => {
     setIsPublicState(isPublic)
   }, [isPublic])
+
+  useEffect(() => {
+    if (content.length > 0) {
+      setContentInputValue(content)
+    }
+  }, [content])
 
   if (isLoading) {
     return (
@@ -72,7 +93,7 @@ function EditNote({
             </div>
             <button
               type="submit"
-              className={`btn btn-accent flex-1 ${isSaving ? 'loading' : ''}`}
+              className={`btn-accent btn flex-1 ${isSaving ? 'loading' : ''}`}
             >
               Save
             </button>
@@ -80,11 +101,13 @@ function EditNote({
         </div>
       </div>
 
-      <div className="flex flex-1">
-        <textarea
-          defaultValue={content}
-          {...register('content')}
-          className="textarea flex-1 resize-none"
+      <div className="bytemd-container flex flex-1">
+        <Editor
+          value={contentInputValue}
+          plugins={plugins}
+          onChange={(value) => {
+            setContentInputValue(value)
+          }}
         />
       </div>
     </form>

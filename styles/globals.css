@@ -12,3 +12,10 @@ body,
   display: flex;
   flex-direction: column;
 }
+.bytemd-container > div {
+  width: 100%;
+}
+.bytemd {
+  height: 100% !important;
+  width: 100% !important;
+}
