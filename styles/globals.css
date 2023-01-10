@@ -19,9 +19,9 @@ body,
 }
 
 .bytemd {
-  @apply h-[calc(100vh_-_14rem)] w-full md:h-[calc(100vh_-_12rem)] !important;
+  @apply !h-[calc(100vh_-_14rem)] !w-full md:!h-[calc(100vh_-_12rem)];
 }
 
 .markdown-body {
-  @apply prose;
+  @apply !container prose w-full;
 }

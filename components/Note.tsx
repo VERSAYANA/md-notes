@@ -3,11 +3,27 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { Database } from '../utils/database.types'
+import { Viewer } from '@bytemd/react'
+import gfm from '@bytemd/plugin-gfm'
+import highlight from '@bytemd/plugin-highlight-ssr'
+import math from '@bytemd/plugin-math-ssr'
+import breaks from '@bytemd/plugin-breaks'
+
 type Notes = Database['public']['Tables']['notes']['Row']
 
 type Props = {
   id: string
 }
+const plugins = [
+  gfm(),
+  highlight(),
+  math({
+    katexOptions: {
+      output: 'mathml',
+    },
+  }),
+  breaks(),
+]
 
 function Notes({ id }: Props) {
   const user = useUser()
@@ -78,7 +94,10 @@ function Notes({ id }: Props) {
               </div>
             ) : null}
           </div>
-          <p>{note.content}</p>
+          {/* <p>{note.content}</p> */}
+          <div className="flex flex-1 justify-center">
+            <Viewer value={note.content || ''} plugins={plugins} />
+          </div>
           <p>{new Date(note.updated_at).toLocaleDateString()}</p>
         </div>
       ) : null}
