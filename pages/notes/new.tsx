@@ -18,7 +18,7 @@ function NewNote() {
   const [username, setUsername] = useState<Profiles['username']>(null)
   const [usernameInputValue, setUsernameInputValue] = useState<string>('')
   const [isSaving, setIsSaving] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     async function getUsername() {
@@ -56,6 +56,8 @@ function NewNote() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
+
+  console.log(user)
 
   async function submitUsername(username: Profiles['username']) {
     try {
@@ -133,7 +135,7 @@ function NewNote() {
           </div>
           <div>
             <button
-              className={`btn btn-accent w-full ${isSaving ? 'loading' : ''}`}
+              className={`btn-accent btn w-full ${isSaving ? 'loading' : ''}`}
               onClick={() => submitUsername(usernameInputValue.toLowerCase())}
               disabled={isSaving}
             >
@@ -146,7 +148,7 @@ function NewNote() {
   }
 
   return (
-    <div className="container mx-auto flex flex-1 flex-col gap-y-4 p-4">
+    <div className="container mx-auto flex flex-1 flex-col px-4 py-4 md:py-6">
       <EditNote saveNote={saveNote} isSaving={isSaving} isPublic={false} />
     </div>
   )

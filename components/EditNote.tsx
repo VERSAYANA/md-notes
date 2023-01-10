@@ -34,12 +34,6 @@ function EditNote({
   const [isPublicState, setIsPublicState] = useState(isPublic)
   const [contentInputValue, setContentInputValue] = useState('')
 
-  // console.log(contentInputValue)
-  // console.log(content)
-  // if (content) {
-  //   setContentInputValue(content)
-  // }
-
   const onSubmit: SubmitHandler<EditNoteFormInput> = (data) =>
     saveNote(data.title, data.content, isPublicState)
 
@@ -64,7 +58,7 @@ function EditNote({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex w-full flex-1 flex-col gap-4 md:gap-8"
+      className="flex w-full flex-1 flex-col gap-4 md:gap-6"
     >
       <div className="flex gap-4">
         <div className="flex flex-1 flex-col gap-4 sm:flex-row">
@@ -101,7 +95,7 @@ function EditNote({
         </div>
       </div>
 
-      <div className="bytemd-container flex flex-1">
+      <div className="bytemd-container flex w-full flex-1 overflow-x-hidden">
         <Editor
           value={contentInputValue}
           plugins={plugins}
