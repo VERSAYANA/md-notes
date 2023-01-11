@@ -7,6 +7,15 @@ export function tagsToSet(tags: { name: string }[]): Set<string> {
   return tagsSet
 }
 
+export function tagsToArray(tags: { name: string }[]): string[] {
+  const tagsArray: string[] = []
+  for (const tag of tags) {
+    tagsArray.push(tag.name)
+  }
+
+  return tagsArray
+}
+
 // export function setToTags(tagsSet: Set<string>): { name: string }[] {
 //   const tags: { name: string }[] = []
 //   for (const tag of tagsSet) {

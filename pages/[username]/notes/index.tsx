@@ -50,7 +50,14 @@ function UserNotesPage() {
         setIsLoading(true)
         let { data, error, status } = await supabase
           .from('notes')
-          .select(`id, updated_at, title, is_public`)
+          .select(
+            `
+        id, updated_at, title, is_public,
+        tags (
+          name
+        )
+        `
+          )
           .eq('user_id', userId)
 
         if (error && status !== 406) {
