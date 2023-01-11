@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { Editor, Viewer } from '@bytemd/react'
+import { Editor } from '@bytemd/react'
 import gfm from '@bytemd/plugin-gfm'
 import highlight from '@bytemd/plugin-highlight-ssr'
 import math from '@bytemd/plugin-math-ssr'
 import breaks from '@bytemd/plugin-breaks'
-import gemoji from '@bytemd/plugin-gemoji'
 
 interface EditNoteFormInput {
   title: string
@@ -97,7 +96,7 @@ function EditNote({
             </div>
             <button
               type="submit"
-              className={`btn-accent btn flex-1 ${isSaving ? 'loading' : ''}`}
+              className={`btn btn-accent flex-1 ${isSaving ? 'loading' : ''}`}
             >
               Save
             </button>
