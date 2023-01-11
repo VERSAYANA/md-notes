@@ -9,90 +9,76 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      note_tags: {
-        Row: {
-          note_id: string
-          tag_id: string
-        }
-        Insert: {
-          note_id: string
-          tag_id: string
-        }
-        Update: {
-          note_id?: string
-          tag_id?: string
-        }
-      }
       notes: {
         Row: {
-          id: string
-          user_id: string
-          created_at: string
-          updated_at: string
-          is_public: boolean
           content: string | null
+          created_at: string
+          id: string
+          is_public: boolean
           title: string
+          updated_at: string
+          user_id: string
         }
         Insert: {
-          id?: string
-          user_id: string
-          created_at?: string
-          updated_at?: string
-          is_public?: boolean
           content?: string | null
+          created_at?: string
+          id?: string
+          is_public?: boolean
           title?: string
+          updated_at?: string
+          user_id: string
         }
         Update: {
-          id?: string
-          user_id?: string
-          created_at?: string
-          updated_at?: string
-          is_public?: boolean
           content?: string | null
+          created_at?: string
+          id?: string
+          is_public?: boolean
           title?: string
+          updated_at?: string
+          user_id?: string
         }
       }
       profiles: {
         Row: {
+          avatar_url: string | null
+          created_at: string | null
+          full_name: string | null
           id: string
           updated_at: string | null
           username: string | null
-          full_name: string | null
-          avatar_url: string | null
           website: string | null
-          created_at: string | null
         }
         Insert: {
+          avatar_url?: string | null
+          created_at?: string | null
+          full_name?: string | null
           id: string
           updated_at?: string | null
           username?: string | null
-          full_name?: string | null
-          avatar_url?: string | null
           website?: string | null
-          created_at?: string | null
         }
         Update: {
+          avatar_url?: string | null
+          created_at?: string | null
+          full_name?: string | null
           id?: string
           updated_at?: string | null
           username?: string | null
-          full_name?: string | null
-          avatar_url?: string | null
           website?: string | null
-          created_at?: string | null
         }
       }
       tags: {
         Row: {
-          id: string
           name: string
+          note_id: string
         }
         Insert: {
-          id: string
           name: string
+          note_id: string
         }
         Update: {
-          id?: string
           name?: string
+          note_id?: string
         }
       }
     }
@@ -100,7 +86,10 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      update_tags: {
+        Args: { p_note_id: string; p_names: string[] }
+        Returns: { name: string }[]
+      }
     }
     Enums: {
       [_ in never]: never

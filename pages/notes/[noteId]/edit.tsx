@@ -6,7 +6,7 @@ import { Database } from '../../../utils/database.types'
 type Note = Database['public']['Tables']['notes']['Row']
 
 function EditNotePage() {
-  const supabase = useSupabaseClient()
+  const supabase = useSupabaseClient<Database>()
   const user = useUser()
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
@@ -43,6 +43,49 @@ function EditNotePage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [noteId])
 
+  const tags = ['typescript', 'leetcode', 'fun']
+  const dataTags: { name: string; note_id: string }[] = []
+  for (const tag of tags) {
+    dataTags.push({ name: tag.toLowerCase(), note_id: noteId as string })
+  }
+
+  async function updateNoteTags() {
+    try {
+      const { data: updatedTags, error: updateTagsError } = await supabase
+        .rpc('update_tags', {
+          p_note_id: noteId as string,
+          p_names: tags,
+        })
+        .select()
+
+      console.log(updatedTags)
+
+      // const { data: tags, error: upsertTagsError } = await supabase
+      //   .from('tags')
+      //   .upsert(dataTags)
+      //   .select()
+      // console.log(tags)
+
+      // if (upsertTagsError) throw upsertTagsError
+
+      // console.log(tags)
+
+      // const noteTagsData: { note_id: string; tag_id: string }[] = []
+      // for (const tag of tags) {
+      //   noteTagsData.push({ note_id: noteId as string, tag_id: tag.id })
+      // }
+
+      // const { data: noteTags, error: upsertNoteTagsError } = await supabase
+      //   .from('note_tags')
+      //   .upsert(noteTagsData)
+      //   .select()
+
+      if (updateTagsError) throw updateTagsError
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   async function saveNote(
     title: Note['title'],
     content: Note['content'],
@@ -51,8 +94,7 @@ function EditNotePage() {
     try {
       setIsSaving(true)
       if (!user) throw new Error('No user')
-      console.log(isPublic)
-      const { data, error } = await supabase
+      const { data: updatedNote, error: updateNoteError } = await supabase
         .from('notes')
         .update({
           title,
@@ -60,8 +102,13 @@ function EditNotePage() {
           is_public: isPublic,
         })
         .eq('id', noteId)
+        .select()
+        .single()
 
-      if (error) throw error
+      if (updatedNote) {
+        updateNoteTags()
+      }
+      if (updateNoteError) throw updateNoteError
     } catch (error) {
       console.log(error)
     } finally {
