@@ -1,8 +1,4 @@
-import {
-  useSession,
-  useSupabaseClient,
-  useUser,
-} from '@supabase/auth-helpers-react'
+import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 import { useEffect, useState } from 'react'
 import { Database } from '../../utils/database.types'
 import { useRouter } from 'next/router'
@@ -39,7 +35,7 @@ function NewNote() {
           setUsername(data.username)
         }
       } catch (error) {
-        console.log(error)
+        console.error(error)
       } finally {
         setIsLoading(false)
       }
@@ -57,8 +53,6 @@ function NewNote() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
 
-  console.log(user)
-
   async function submitUsername(username: Profiles['username']) {
     try {
       setIsSaving(true)
@@ -71,7 +65,38 @@ function NewNote() {
 
       if (error) throw error
     } catch (error) {
-      console.log(error)
+      console.error(error)
+    } finally {
+      setIsSaving(false)
+    }
+  }
+
+  async function updateNoteTags(noteId: string, tags: string[]) {
+    try {
+      setIsSaving(true)
+      if (tags.length > 0) {
+        const { data: updatedTags, error: updateTagsError } = await supabase
+          .rpc('update_tags', {
+            p_note_id: noteId as string,
+            p_names: tags,
+          })
+          .select()
+
+        if (updateTagsError) {
+          throw updateTagsError
+        } else {
+          router.push(`/notes/${noteId}`)
+        }
+      } else {
+        const { error: updateTagsError } = await supabase
+          .from('tags')
+          .delete()
+          .eq('note_id', noteId as string)
+
+        if (updateTagsError) throw updateTagsError
+      }
+    } catch (error) {
+      console.error(error)
     } finally {
       setIsSaving(false)
     }
@@ -80,7 +105,8 @@ function NewNote() {
   async function saveNote(
     title: Notes['title'],
     content: Notes['content'],
-    isPublic: Notes['is_public']
+    isPublic: Notes['is_public'],
+    tags: string[]
   ) {
     try {
       setIsSaving(true)
@@ -100,10 +126,10 @@ function NewNote() {
         throw error
       }
       if (data) {
-        router.push(`/notes/${data.id}`)
+        updateNoteTags(data.id, tags)
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     } finally {
       setIsSaving(false)
     }

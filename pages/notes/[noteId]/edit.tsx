@@ -3,7 +3,16 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import EditNote from '../../../components/EditNote'
 import { Database } from '../../../utils/database.types'
-type Note = Database['public']['Tables']['notes']['Row']
+type Note = Database['public']['Tables']['notes']['Row'] & {
+  tags:
+    | {
+        name: string
+      }
+    | {
+        name: string
+      }[]
+    | null
+}
 
 function EditNotePage() {
   const supabase = useSupabaseClient<Database>()
@@ -20,7 +29,14 @@ function EditNotePage() {
         setIsLoading(true)
         const { data, error, status } = await supabase
           .from('notes')
-          .select('*')
+          .select(
+            `
+              *,
+              tags (
+                name
+              )
+            `
+          )
           .eq('id', noteId)
           .single()
 
@@ -31,7 +47,7 @@ function EditNotePage() {
           setNote(data)
         }
       } catch (error) {
-        console.log(error)
+        console.error(error)
       } finally {
         setIsLoading(false)
       }
@@ -49,47 +65,38 @@ function EditNotePage() {
     dataTags.push({ name: tag.toLowerCase(), note_id: noteId as string })
   }
 
-  async function updateNoteTags() {
+  async function updateNoteTags(tags: string[]) {
     try {
-      const { data: updatedTags, error: updateTagsError } = await supabase
-        .rpc('update_tags', {
-          p_note_id: noteId as string,
-          p_names: tags,
-        })
-        .select()
+      setIsSaving(true)
+      if (tags.length > 0) {
+        const { data: updatedTags, error: updateTagsError } = await supabase
+          .rpc('update_tags', {
+            p_note_id: noteId as string,
+            p_names: tags,
+          })
+          .select()
 
-      console.log(updatedTags)
+        if (updateTagsError) throw updateTagsError
+      } else {
+        const { error: updateTagsError } = await supabase
+          .from('tags')
+          .delete()
+          .eq('note_id', noteId as string)
 
-      // const { data: tags, error: upsertTagsError } = await supabase
-      //   .from('tags')
-      //   .upsert(dataTags)
-      //   .select()
-      // console.log(tags)
-
-      // if (upsertTagsError) throw upsertTagsError
-
-      // console.log(tags)
-
-      // const noteTagsData: { note_id: string; tag_id: string }[] = []
-      // for (const tag of tags) {
-      //   noteTagsData.push({ note_id: noteId as string, tag_id: tag.id })
-      // }
-
-      // const { data: noteTags, error: upsertNoteTagsError } = await supabase
-      //   .from('note_tags')
-      //   .upsert(noteTagsData)
-      //   .select()
-
-      if (updateTagsError) throw updateTagsError
+        if (updateTagsError) throw updateTagsError
+      }
     } catch (error) {
       console.error(error)
+    } finally {
+      setIsSaving(false)
     }
   }
 
   async function saveNote(
     title: Note['title'],
     content: Note['content'],
-    isPublic: Note['is_public']
+    isPublic: Note['is_public'],
+    tags: string[]
   ) {
     try {
       setIsSaving(true)
@@ -106,11 +113,11 @@ function EditNotePage() {
         .single()
 
       if (updatedNote) {
-        updateNoteTags()
+        updateNoteTags(tags)
       }
       if (updateNoteError) throw updateNoteError
     } catch (error) {
-      console.log(error)
+      console.error(error)
     } finally {
       setIsSaving(false)
     }
@@ -125,6 +132,11 @@ function EditNotePage() {
         isLoading={isLoading}
         saveNote={saveNote}
         isSaving={isSaving}
+        tags={
+          (note?.tags as {
+            name: string
+          }[]) || []
+        }
       />
     </div>
   )

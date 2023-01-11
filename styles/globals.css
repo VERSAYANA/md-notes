@@ -19,7 +19,7 @@ body,
 }
 
 .bytemd {
-  @apply !h-[calc(100vh_-_14rem)] !w-full md:!h-[calc(100vh_-_12rem)];
+  @apply !h-[calc(100vh_-_18rem)] !w-full sm:!h-[calc(100vh_-_16rem)];
 }
 
 .markdown-body {
