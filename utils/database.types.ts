@@ -86,6 +86,10 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
+      get_notes_by_tag: {
+        Args: { p_tag_name: string }
+        Returns: { id: string; note: string }[]
+      }
       update_tags: {
         Args: { p_note_id: string; p_names: string[] }
         Returns: { name: string }[]

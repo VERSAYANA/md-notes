@@ -28,13 +28,12 @@ function Notes({ notes }: Props) {
           </div> */}
           <div className="flex flex-wrap items-center gap-2">
             {tagsToArray((note.tags as { name: string }[]) || []).map((tag) => (
-              <Link
+              <div
                 key={tag}
-                href={`/tag/${tag}`}
                 className="flex rounded-full bg-base-200 px-4 py-2 shadow hover:shadow-md"
               >
                 {tag}
-              </Link>
+              </div>
             ))}
           </div>
         </Link>
