@@ -1,15 +1,17 @@
 import Link from 'next/link'
 import { Eye, Lock } from 'react-feather'
 import { Database } from '../utils/database.types'
-import type { UserNoteSummary } from '../utils/types'
+import type { NoteSummary } from '../utils/types'
 type Notes = Database['public']['Tables']['notes']['Row']
 import { tagsToArray, tagsToSet } from '../utils/functions'
+import { useRouter } from 'next/router'
 
 type Props = {
-  notes: UserNoteSummary[]
+  notes: NoteSummary[]
 }
 
 function Notes({ notes }: Props) {
+  const router = useRouter()
   return (
     <div className="container mx-auto flex w-full max-w-4xl flex-1 flex-col gap-y-8">
       {notes.map((note) => (
@@ -27,13 +29,14 @@ function Notes({ notes }: Props) {
             <button className="btn flex">Open note</button>
           </div> */}
           <div className="flex flex-wrap items-center gap-2">
-            {tagsToArray((note.tags as { name: string }[]) || []).map((tag) => (
-              <div
+            {note.tags.map((tag) => (
+              <button
                 key={tag}
+                onClick={() => router.push(`/tag/${tag}`)}
                 className="flex rounded-full bg-base-200 px-4 py-2 shadow hover:shadow-md"
               >
                 {tag}
-              </div>
+              </button>
             ))}
           </div>
         </Link>

@@ -88,7 +88,13 @@ export interface Database {
     Functions: {
       get_notes_by_tag: {
         Args: { p_tag_name: string }
-        Returns: { id: string; note: string }[]
+        Returns: {
+          id: string
+          updated_at: string
+          title: string
+          is_public: boolean
+          tags: string[]
+        }[]
       }
       update_tags: {
         Args: { p_note_id: string; p_names: string[] }

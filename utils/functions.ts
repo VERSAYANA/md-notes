@@ -1,3 +1,5 @@
+import { GetNotesAPIResult, NoteSummary } from './types'
+
 export function tagsToSet(tags: { name: string }[]): Set<string> {
   const tagsSet = new Set<string>()
   for (const tag of tags) {
@@ -14,6 +16,25 @@ export function tagsToArray(tags: { name: string }[]): string[] {
   }
 
   return tagsArray
+}
+
+export function transformNotesSummaryData(
+  data: GetNotesAPIResult
+): NoteSummary[] {
+  if (!data) return []
+  return data.map((item) => {
+    return {
+      id: item.id,
+      title: item.title,
+      updated_at: item.updated_at,
+      is_public: item.is_public,
+      tags: item.tags
+        ? Array.isArray(item.tags)
+          ? item.tags.map((tag) => tag.name)
+          : [item.tags.name]
+        : [],
+    }
+  })
 }
 
 // export function setToTags(tagsSet: Set<string>): { name: string }[] {

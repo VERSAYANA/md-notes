@@ -3,7 +3,8 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import Notes from '../../../components/UserNotes'
 import { Database } from '../../../utils/database.types'
-import type { UserNoteSummary } from '../../../utils/types'
+import { transformNotesSummaryData } from '../../../utils/functions'
+import type { NoteSummary } from '../../../utils/types'
 type Profiles = Database['public']['Tables']['profiles']['Row']
 
 function UserNotesPage() {
@@ -11,7 +12,7 @@ function UserNotesPage() {
   const { username } = router.query
   const [isLoading, setIsLoading] = useState(true)
   const supabase = useSupabaseClient<Database>()
-  const [notes, setNotes] = useState<UserNoteSummary[]>([])
+  const [notes, setNotes] = useState<NoteSummary[]>([])
   const [userId, setUserId] = useState<Profiles['id']>()
 
   useEffect(() => {
@@ -64,8 +65,10 @@ function UserNotesPage() {
           throw error
         }
 
+        console.log(data)
+
         if (data) {
-          setNotes(data)
+          setNotes(transformNotesSummaryData(data))
         }
       } catch (error) {
         console.log(error)
