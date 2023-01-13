@@ -1,84 +1,114 @@
-import type { GetServerSideProps } from 'next'
+import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import { useRouter } from 'next/router'
 import { ParsedUrlQuery } from 'querystring'
+import { useEffect, useState } from 'react'
 import Notes from '../../components/UserNotes'
+import { Database } from '../../utils/database.types'
 import { supabase } from '../../utils/supabase'
-import { UserNoteSummary } from '../../utils/types'
+import { NoteSummary } from '../../utils/types'
 
 type Props = {
-  data: UserNoteSummary[]
+  data: NoteSummary[]
 }
 
 interface IParams extends ParsedUrlQuery {
   tagName: string
 }
 
-function TagNotes({ data }: Props) {
+function TagNotes() {
+  const router = useRouter()
+  const { tagName } = router.query
+  const supabase = useSupabaseClient<Database>()
+  const [notes, setNotes] = useState<NoteSummary[]>([])
+
+  useEffect(() => {
+    if (tagName) getTagNotes(tagName as string)
+  }, [tagName])
+
+  async function getTagNotes(tagName: string) {
+    try {
+      const { data: notes, error } = await supabase
+        .rpc('get_notes_by_tag', {
+          p_tag_name: tagName,
+        })
+        .select()
+      // const { data, error } = await supabase.from('tags').select('*, notes(id)').eq('name', '')
+      // .eq('tags.name', 'fun')
+
+      console.log(notes)
+
+      if (error) throw error
+
+      if (notes) setNotes(notes)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <div className="containter flex w-full flex-1 flex-col items-center justify-center p-4 md:p-8">
-      <Notes notes={data} />
+      <Notes notes={notes} />
     </div>
   )
 }
 
 export default TagNotes
 
-export const getServerSideProps: GetServerSideProps<{
-  data:
-    | ({
-        id: string
-      } & {
-        updated_at: string
-      } & {
-        title: string
-      } & {
-        is_public: boolean
-      } & {
-        tags:
-          | {
-              name: string
-            }
-          | {
-              name: string
-            }[]
-          | null
-      })[]
-    | null
-}> = async (context) => {
-  const { tagName } = context.params as IParams
+// export const getServerSideProps: GetServerSideProps<{
+//   data: UserNoteSummary[]
+// }> = async (context) => {
+//   const { tagName } = context.params as IParams
+//   const { data: notes, error } = await supabase
+//     .rpc('get_notes_by_tag', {
+//       p_tag_name: tagName,
+//     })
+//     .select()
 
-  // let { data: noteIds, error, status } = await supabase.from("tags").select('note_id').eq('name', tagName)
-  // if (error && status !== 406) {
-  //   throw error
-  // }
-  // if (noteIds) {
-  //   let {} = await supabase          .from('notes')
-  //   .select(
-  //     `
-  // id, updated_at, title, is_public,
-  // tags (
-  //   name
-  // )
-  // `).eq('id')
-  // }
-  // let { data, error, status } = await supabase
-  //   .rpc('get_notes_by_tag', {
-  //     p_tag_name: tagName,
-  //   })
-  //   .select()
-  // if (error) throw error
+//   console.log(notes)
+//   const { data, error } = await supabase.from('notes').select(`
+//     id,
+//     tags (
+//       note_id
+//     )
+//   `)
+// .eq('tags(name)', tagName)
+// console.log(data)
 
-  const { data, error } = await supabase
-    .from('notes')
-    .select('id, updated_at, title, is_public, tags(name)')
-    .eq('tags.name', tagName)
+// let { data: noteIds, error, status } = await supabase.from("tags").select('note_id').eq('name', tagName)
+// if (error && status !== 406) {
+//   throw error
+// }
+// if (noteIds) {
+//   let {} = await supabase          .from('notes')
+//   .select(
+//     `
+// id, updated_at, title, is_public,
+// tags (
+//   name
+// )
+// `).eq('id')
+// }
+// let { data, error, status } = await supabase
+//   .rpc('get_notes_by_tag', {
+//     p_tag_name: tagName,
+//   })
+//   .select()
+// if (error) throw error
 
-  console.log(data)
+// console.log(tagName)
 
-  return {
-    props: {
-      data,
-    },
-  }
+// const { data, error } = await supabase.rpc('get_notes_by_tag', {
+//   p_tag_name: tagName,
+// })
+// console.log(data)
 
-  // console.log(data)
-}
+// console.log('datalenght', data?.length)
+
+// return {
+//   props: {
+//     data: notes || [],
+//   },
+// }
+
+// console.log()
+// }
