@@ -8,9 +8,13 @@ import { useRouter } from 'next/router'
 
 type Props = {
   notes: NoteSummary[]
+  showPublicPrivateIcon?: boolean
 }
 
-function Notes({ notes }: Props) {
+function NotesSummary({
+  notes,
+  showPublicPrivateIcon: showPublicPrivate = false,
+}: Props) {
   const router = useRouter()
   return (
     <div className="container mx-auto flex w-full max-w-4xl flex-1 flex-col gap-y-8">
@@ -22,7 +26,9 @@ function Notes({ notes }: Props) {
         >
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-bold">{note.title}</h2>
-            <div className="flex">{note.is_public ? <Eye /> : <Lock />}</div>
+            {showPublicPrivate && (
+              <div className="flex">{note.is_public ? <Eye /> : <Lock />}</div>
+            )}
           </div>
           <p>{new Date(note.updated_at).toLocaleDateString()}</p>
           {/* <div className="flex justify-end">
@@ -45,4 +51,4 @@ function Notes({ notes }: Props) {
   )
 }
 
-export default Notes
+export default NotesSummary
