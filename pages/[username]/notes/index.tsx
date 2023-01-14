@@ -50,16 +50,11 @@ function UserNotesPage() {
       try {
         setIsLoading(true)
         let { data, error, status } = await supabase
-          .from('notes')
-          .select(
-            `
-        id, updated_at, title, is_public,
-        tags (
-          name
-        )
-        `
-          )
-          .eq('user_id', userId)
+          .rpc('get_notes_by_user_id', { p_user_id: userId as string })
+          .select()
+          .order('updated_at', { ascending: false })
+
+        console.log(data)
 
         if (error && status !== 406) {
           throw error
@@ -68,7 +63,7 @@ function UserNotesPage() {
         console.log(data)
 
         if (data) {
-          setNotes(transformNotesSummaryData(data))
+          setNotes(data)
         }
       } catch (error) {
         console.log(error)

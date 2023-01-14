@@ -1,9 +1,14 @@
 export type NoteSummary = {
   id: string
   title: string
-  updated_at: string
   is_public: boolean
+  updated_at?: string
+  created_at?: string
   tags: string[]
+  user_id?: string
+  username?: string
+  full_name?: string
+  avatar_url?: string
 }
 
 export type GetNotesAPIResult = ({

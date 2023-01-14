@@ -27,10 +27,13 @@ export const getServerSideProps: GetServerSideProps<{
 }> = async (context) => {
   const { tagName } = context.params as IParams
   const { data: notes, error } = await supabase
-    .rpc('get_notes_by_tag', {
-      p_tag_name: tagName,
+    .rpc('get_notes_by_tag_name', {
+      tag_name: tagName,
     })
     .select()
+    .order('updated_at', { ascending: false })
+
+  console.log(notes)
 
   if (error) throw error
 
