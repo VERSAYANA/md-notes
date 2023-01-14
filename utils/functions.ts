@@ -37,6 +37,16 @@ export function transformNotesSummaryData(
   })
 }
 
+export function getValidUrlFromUsernameOrUrl(
+  usernameOrUrl: string,
+  websitePrefix: string
+): string {
+  if (!usernameOrUrl.startsWith('http') && !usernameOrUrl.startsWith('www')) {
+    return websitePrefix + usernameOrUrl
+  }
+  return usernameOrUrl
+}
+
 // export function setToTags(tagsSet: Set<string>): { name: string }[] {
 //   const tags: { name: string }[] = []
 //   for (const tag of tagsSet) {
