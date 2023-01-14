@@ -22,9 +22,15 @@ function UserInformation({ profile }: Props) {
         {profile.full_name && (
           <h2 className="text-2xl font-bold">{profile.full_name}</h2>
         )}
-        {profile.username && <p>@{profile.username.toUpperCase()}</p>}
+        {profile.username && (
+          <p className="text-base">@{profile.username.toUpperCase()}</p>
+        )}
+        {profile.bio && (
+          <p className="mt-3 text-base opacity-90">{profile.bio}</p>
+        )}
       </div>
-      <div className="my-6 flex items-center justify-center gap-2">
+
+      <div className="my-5 flex items-center justify-center gap-2">
         {profile.twitter && (
           <button className="btn-ghost btn-square btn">
             <a

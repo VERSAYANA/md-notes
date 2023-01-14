@@ -41,7 +41,9 @@ export interface Database {
       profiles: {
         Row: {
           avatar_url: string | null
+          bio: string | null
           created_at: string | null
+          email: string | null
           full_name: string | null
           github: string | null
           id: string
@@ -55,7 +57,9 @@ export interface Database {
         }
         Insert: {
           avatar_url?: string | null
+          bio?: string | null
           created_at?: string | null
+          email?: string | null
           full_name?: string | null
           github?: string | null
           id: string
@@ -69,7 +73,9 @@ export interface Database {
         }
         Update: {
           avatar_url?: string | null
+          bio?: string | null
           created_at?: string | null
+          email?: string | null
           full_name?: string | null
           github?: string | null
           id?: string

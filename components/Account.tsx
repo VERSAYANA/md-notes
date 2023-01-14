@@ -15,6 +15,7 @@ type ProfileInputs = {
   instagram: string
   tiktok: string
   linkedin: string
+  bio: string
 }
 
 export default function Account({ session }: { session: Session }) {
@@ -41,6 +42,7 @@ export default function Account({ session }: { session: Session }) {
       instagram: formData.instagram,
       tiktok: formData.tiktok,
       linkedin: formData.linkedin,
+      bio: formData.bio,
     })
   const formData = watch()
 
@@ -53,7 +55,7 @@ export default function Account({ session }: { session: Session }) {
         let { data, error, status } = await supabase
           .from('profiles')
           .select(
-            `username, website, avatar_url, full_name, twitter, github, instagram, tiktok, linkedin`
+            `username, website, avatar_url, full_name, twitter, github, instagram, tiktok, linkedin, bio`
           )
           .eq('id', user.id)
           .single()
@@ -75,6 +77,7 @@ export default function Account({ session }: { session: Session }) {
           setValue('instagram', data.instagram || '')
           setValue('tiktok', data.tiktok || '')
           setValue('linkedin', data.linkedin || '')
+          setValue('bio', data.bio || '')
 
           setAvatarUrl(data.avatar_url)
         }
@@ -101,6 +104,7 @@ export default function Account({ session }: { session: Session }) {
     instagram,
     tiktok,
     linkedin,
+    bio,
   }: {
     username: Profiles['username']
     website: Profiles['website']
@@ -111,6 +115,7 @@ export default function Account({ session }: { session: Session }) {
     instagram: Profiles['instagram']
     tiktok: Profiles['tiktok']
     linkedin: Profiles['linkedin']
+    bio: Profiles['bio']
   }) {
     try {
       setLoading(true)
@@ -128,6 +133,7 @@ export default function Account({ session }: { session: Session }) {
         instagram,
         tiktok,
         linkedin,
+        bio,
       }
 
       let { error } = await supabase.from('profiles').upsert(updates)
@@ -160,6 +166,7 @@ export default function Account({ session }: { session: Session }) {
               instagram: formData.instagram,
               tiktok: formData.tiktok,
               linkedin: formData.linkedin,
+              bio: formData.bio,
             })
           }}
         />
@@ -198,6 +205,17 @@ export default function Account({ session }: { session: Session }) {
           className="input-bordered input w-full"
           id="fullName"
           type="fullName"
+        />
+      </div>
+      <div>
+        <label htmlFor="bio" className="label">
+          <span className="label-text">Bio</span>
+        </label>
+        <input
+          {...register('bio')}
+          className="input-bordered input w-full"
+          id="bio"
+          type="bio"
         />
       </div>
       <div>
