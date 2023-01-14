@@ -69,9 +69,14 @@ function NotesSummary({
                   )
               )}
             </div>
-            <button className="btn normal-case hover:shadow-md">
-              Read note
-            </button>
+            <Link
+              className="flex flex-1 justify-end"
+              href={`/notes/${note.id}`}
+            >
+              <button className="btn normal-case hover:shadow-md">
+                Read note
+              </button>
+            </Link>
           </div>
         </div>
       ))}
