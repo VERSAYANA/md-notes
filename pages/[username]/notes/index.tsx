@@ -78,7 +78,7 @@ function UserNotesPage() {
   }, [userId])
 
   return (
-    <div className="containter flex w-full flex-1 flex-col items-center justify-center p-4 md:p-8">
+    <div className="containter flex h-full w-full flex-1 flex-col items-center justify-center p-4 md:p-8">
       <NotesSummary notes={notes} showPublicPrivateIcon={true} />
     </div>
   )

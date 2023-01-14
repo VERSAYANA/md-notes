@@ -78,7 +78,7 @@ function UserNotesPage() {
   }, [userId])
 
   return (
-    <div className="containter mx-auto flex w-full max-w-4xl flex-1 flex-col items-center justify-center p-4 md:p-8">
+    <div className="containter mx-auto flex h-full w-full max-w-4xl flex-col items-center justify-center bg-yellow-300 p-4 md:p-8">
       {profile && <UserInformation profile={profile} />}
       <section className="flex w-full flex-col">
         <div className="mb-4 mt-8 flex w-full items-center justify-between px-4">

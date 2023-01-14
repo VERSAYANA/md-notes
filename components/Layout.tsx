@@ -9,11 +9,20 @@ type Props = {
 
 export default function Layout({ children }: Props) {
   return (
-    <div className="flex flex-col">
+    // <div className="flex h-screen flex-col">
+    //   <Navbar />
+    //   <div className="flex h-[calc(100vh_-_64px)]">
+    //     <Drawer />
+    //     <main className="flex h-full w-full overflow-y-auto">{children}</main>
+    //   </div>
+    // </div>
+    <div className="flex h-screen flex-col">
       <Navbar />
-      <div className="flex flex-1">
+      <div className="relative flex flex-1">
         <Drawer />
-        <main className="flex w-full flex-1">{children}</main>
+        <main className="relative mt-16 flex-1 overflow-y-auto lg:ml-80">
+          {children}
+        </main>
       </div>
     </div>
   )

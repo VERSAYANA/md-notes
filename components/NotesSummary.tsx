@@ -21,7 +21,7 @@ function NotesSummary({
   const router = useRouter()
 
   return (
-    <div className="container mx-auto flex w-full max-w-4xl flex-1 flex-col gap-y-8">
+    <div className="container mx-auto flex h-full w-full max-w-4xl flex-col gap-y-8">
       {notes.map((note) => (
         <div
           key={note.id}
