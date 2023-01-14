@@ -156,7 +156,7 @@ function EditNote({
             className={`input w-full rounded-l-full outline-none sm:w-48 ${
               !isTagInputOpen && 'hidden'
             }`}
-            maxLength={50}
+            maxLength={40}
           />
           <button
             onClick={() => {
