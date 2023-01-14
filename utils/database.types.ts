@@ -132,8 +132,38 @@ export interface Database {
           avatar_url: string
         }[]
       }
+      get_notes_by_user_and_tag: {
+        Args: { p_user_id: string; tag_name: string }
+        Returns: {
+          id: string
+          title: string
+          is_public: boolean
+          updated_at: string
+          created_at: string
+          tags: string[]
+          user_id: string
+          username: string
+          full_name: string
+          avatar_url: string
+        }[]
+      }
       get_notes_by_user_id: {
         Args: { p_user_id: string }
+        Returns: {
+          id: string
+          title: string
+          is_public: boolean
+          updated_at: string
+          created_at: string
+          tags: string[]
+          user_id: string
+          username: string
+          full_name: string
+          avatar_url: string
+        }[]
+      }
+      get_notes_by_username_and_tag: {
+        Args: { p_username: string; tag_name: string }
         Returns: {
           id: string
           title: string
