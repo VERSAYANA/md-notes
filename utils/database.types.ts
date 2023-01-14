@@ -43,7 +43,12 @@ export interface Database {
           avatar_url: string | null
           created_at: string | null
           full_name: string | null
+          github: string | null
           id: string
+          instagram: string | null
+          linkedin: string | null
+          tiktok: string | null
+          twitter: string | null
           updated_at: string | null
           username: string | null
           website: string | null
@@ -52,7 +57,12 @@ export interface Database {
           avatar_url?: string | null
           created_at?: string | null
           full_name?: string | null
+          github?: string | null
           id: string
+          instagram?: string | null
+          linkedin?: string | null
+          tiktok?: string | null
+          twitter?: string | null
           updated_at?: string | null
           username?: string | null
           website?: string | null
@@ -61,7 +71,12 @@ export interface Database {
           avatar_url?: string | null
           created_at?: string | null
           full_name?: string | null
+          github?: string | null
           id?: string
+          instagram?: string | null
+          linkedin?: string | null
+          tiktok?: string | null
+          twitter?: string | null
           updated_at?: string | null
           username?: string | null
           website?: string | null
