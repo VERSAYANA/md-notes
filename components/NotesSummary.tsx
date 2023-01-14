@@ -33,12 +33,9 @@ function NotesSummary({
               className="flex h-12 gap-x-4"
             >
               <Avatar url={note.avatar_url || ''} height={48} width={48} />
-              {note.full_name ||
-                (note.username && (
-                  <span className="flex h-full items-center text-lg">
-                    {note.full_name ? note.full_name : note.username}
-                  </span>
-                ))}
+              <span className="flex h-full items-center text-lg">
+                {note.full_name ? note.full_name : note.username || ''}
+              </span>
             </Link>
             <p className="flex h-full flex-1 items-center justify-end opacity-70">
               {dayjs(note.updated_at).fromNow(true)}
