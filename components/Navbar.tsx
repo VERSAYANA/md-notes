@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 import { Database } from '../utils/database.types'
-import { ChevronDown, FilePlus, Home, Plus } from 'react-feather'
+import { ChevronDown, FilePlus, Home, Menu, Plus } from 'react-feather'
 import Avatar from './Avatar'
 type Profiles = Database['public']['Tables']['profiles']['Row']
 
@@ -98,12 +98,18 @@ function Navbar() {
     <nav className="navbar flex w-full justify-center bg-primary text-primary-content">
       <div className="container flex w-full justify-between">
         <div className="flex">
-          <Link href="/" className="btn-ghost btn flex">
+          <label
+            htmlFor="my-drawer"
+            className="btn-primary drawer-button btn lg:hidden"
+          >
+            <Menu size={24} />
+          </label>
+          {/* <Link href="/" className="btn-ghost btn flex">
             <Home size={24} />
           </Link>
           <Link href="/notes/new" className="btn-ghost btn flex">
             <FilePlus size={24} />
-          </Link>
+          </Link> */}
         </div>
         <div className="flex">{topRight}</div>
       </div>
