@@ -47,6 +47,10 @@ export function getValidUrlFromUsernameOrUrl(
   return usernameOrUrl
 }
 
+export function formatTagString(str: string): string {
+  return encodeURIComponent(str.trim().toLowerCase().replace(/\s+/g, '-'))
+}
+
 // export function setToTags(tagsSet: Set<string>): { name: string }[] {
 //   const tags: { name: string }[] = []
 //   for (const tag of tagsSet) {

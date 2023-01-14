@@ -62,13 +62,11 @@ function UserNotesPage() {
           throw error
         }
 
-        console.log(data)
-
         if (data) {
           setNotes(data)
         }
       } catch (error) {
-        console.log(error)
+        console.error(error)
       } finally {
         setIsLoading(false)
       }
@@ -84,7 +82,7 @@ function UserNotesPage() {
       {profile && <UserInformation profile={profile} />}
       <section className="flex w-full flex-col">
         <div className="mb-4 mt-8 flex w-full items-center justify-between px-4">
-          <h3 className="text-2xl font-bold">Notes</h3>
+          <h3 className="text-2xl font-bold">Most Recent Notes</h3>
           <Link className="" href={`/${username}/notes`}>
             See more
           </Link>

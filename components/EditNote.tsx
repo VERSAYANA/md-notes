@@ -5,7 +5,7 @@ import gfm from '@bytemd/plugin-gfm'
 import highlight from '@bytemd/plugin-highlight-ssr'
 import math from '@bytemd/plugin-math-ssr'
 import breaks from '@bytemd/plugin-breaks'
-import { tagsToSet } from '../utils/functions'
+import { formatTagString, tagsToSet } from '../utils/functions'
 import { X } from 'react-feather'
 
 interface EditNoteFormInput {
@@ -122,7 +122,7 @@ function EditNote({
             </div>
             <button
               type="submit"
-              className={`btn-accent btn flex-1 ${isSaving ? 'loading' : ''}`}
+              className={`btn btn-accent flex-1 ${isSaving ? 'loading' : ''}`}
             >
               Save
             </button>
@@ -165,7 +165,7 @@ function EditNote({
                   setTagsState(
                     new Set([
                       ...Array.from(tagsState),
-                      tagInputValue.toLocaleLowerCase(),
+                      formatTagString(tagInputValue),
                     ])
                   )
                   setTagInputValue('')
@@ -178,7 +178,7 @@ function EditNote({
               }
             }}
             type="button"
-            className="btn-secondary btn rounded-full py-2 px-4 normal-case shadow-sm"
+            className="btn btn-secondary rounded-full py-2 px-4 normal-case shadow-sm"
           >
             Add new tag
           </button>
