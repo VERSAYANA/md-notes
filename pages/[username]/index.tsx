@@ -1,4 +1,5 @@
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import NotesSummary from '../../components/NotesSummary'
@@ -79,9 +80,17 @@ function UserNotesPage() {
   }, [userId])
 
   return (
-    <div className="containter flex w-full flex-1 flex-col items-center justify-center p-4 md:p-8">
+    <div className="containter mx-auto flex w-full max-w-4xl flex-1 flex-col items-center justify-center p-4 md:p-8">
       {profile && <UserInformation profile={profile} />}
-      <NotesSummary notes={notes} showPublicPrivateIcon={true} />
+      <section className="flex w-full flex-col">
+        <div className="mb-4 mt-8 flex w-full items-center justify-between px-4">
+          <h3 className="text-2xl font-bold">Notes</h3>
+          <Link className="" href={`/${username}/notes`}>
+            See more
+          </Link>
+        </div>
+        <NotesSummary notes={notes} showPublicPrivateIcon={true} />
+      </section>
     </div>
   )
 }
