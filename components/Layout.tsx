@@ -30,109 +30,42 @@ export default function Layout({ children }: Props) {
             </Link>
           </div>
           <div className="flex h-full flex-1 flex-col overflow-y-auto border-y">
-            <ul className="menu bg-base-100 p-4 text-base-content">
+            <h4 className="px-8 pt-4 pb-2 text-base font-bold">My notes</h4>
+            <ul className="menu bg-base-100 px-4 text-base-content">
               <li>
-                <Link className="text-primary" href="/notes/new">
-                  <FilePlus size={24} />
-                  <span>New note</span>
+                <Link
+                  className="flex justify-between text-base-content"
+                  href="/notes/new"
+                >
+                  <span>All</span>
+                  <span className="opacity-75">32</span>
                 </Link>
               </li>
               <li>
-                <Link className="text-primary" href="/notes/new">
-                  <FilePlus size={24} />
-                  <span>New note</span>
+                <Link
+                  className="flex justify-between text-base-content"
+                  href="/notes/new"
+                >
+                  <span>typescriptdasjidiasdijasidsadj</span>
+                  <span className="opacity-75">4</span>
                 </Link>
               </li>
               <li>
-                <Link className="text-primary" href="/notes/new">
-                  <FilePlus size={24} />
-                  <span>New note</span>
+                <Link
+                  className="flex justify-between text-base-content"
+                  href="/notes/new"
+                >
+                  <span>idea</span>
+                  <span className="opacity-75">13</span>
                 </Link>
               </li>
               <li>
-                <Link className="text-primary" href="/notes/new">
-                  <FilePlus size={24} />
-                  <span>New note</span>
-                </Link>
-              </li>
-              <li>
-                <Link className="text-primary" href="/notes/new">
-                  <FilePlus size={24} />
-                  <span>New note</span>
-                </Link>
-              </li>
-              <li>
-                <Link className="text-primary" href="/notes/new">
-                  <FilePlus size={24} />
-                  <span>New note</span>
-                </Link>
-              </li>
-              <li>
-                <Link className="text-primary" href="/notes/new">
-                  <FilePlus size={24} />
-                  <span>New note</span>
-                </Link>
-              </li>
-
-              <li>
-                <Link className="text-primary" href="/notes/new">
-                  <FilePlus size={24} />
-                  <span>New note</span>
-                </Link>
-              </li>
-              <li>
-                <Link className="text-primary" href="/notes/new">
-                  <FilePlus size={24} />
-                  <span>New note</span>
-                </Link>
-              </li>
-              <li>
-                <Link className="text-primary" href="/notes/new">
-                  <FilePlus size={24} />
-                  <span>New note</span>
-                </Link>
-              </li>
-
-              <li>
-                <Link className="text-primary" href="/notes/new">
-                  <FilePlus size={24} />
-                  <span>New note</span>
-                </Link>
-              </li>
-              <li>
-                <Link className="text-primary" href="/notes/new">
-                  <FilePlus size={24} />
-                  <span>New note</span>
-                </Link>
-              </li>
-              <li>
-                <Link className="text-primary" href="/notes/new">
-                  <FilePlus size={24} />
-                  <span>New note</span>
-                </Link>
-              </li>
-              <li>
-                <Link className="text-primary" href="/notes/new">
-                  <FilePlus size={24} />
-                  <span>New note</span>
-                </Link>
-              </li>
-              <li>
-                <Link className="text-primary" href="/notes/new">
-                  <FilePlus size={24} />
-                  <span>New note</span>
-                </Link>
-              </li>
-              <li>
-                <Link className="text-primary" href="/notes/new">
-                  <FilePlus size={24} />
-                  <span>New note</span>
-                </Link>
-              </li>
-              <li>
-                <Link className="text-primary" href="/notes/new">
-                  <FilePlus size={24} />
-                  <span>New note</span>
+                <Link
+                  className="flex justify-between text-base-content"
+                  href="/notes/new"
+                >
+                  <span>react</span>
+                  <span className="opacity-75">17</span>
                 </Link>
               </li>
             </ul>
