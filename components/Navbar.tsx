@@ -95,12 +95,12 @@ function Navbar() {
     topRight = signInButton
   }
   return (
-    <nav className="navbar fixed top-0 z-50 col-span-3 flex w-full justify-center bg-primary text-primary-content">
+    <nav className="navbar sticky top-0 z-50 col-span-3 flex w-full justify-center bg-primary text-primary-content">
       <div className="container flex w-full justify-between">
         <div className="flex">
           <label
-            htmlFor="my-drawer"
-            className="btn-primary drawer-button btn lg:hidden"
+            htmlFor="drawer"
+            className="drawer-button btn-ghost btn-square btn lg:hidden"
           >
             <Menu size={24} />
           </label>
