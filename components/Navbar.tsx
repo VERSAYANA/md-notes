@@ -3,60 +3,28 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 import { Database } from '../utils/database.types'
-import { ChevronDown, FilePlus, Home, Menu, Plus } from 'react-feather'
+import { ChevronDown, FilePlus, Home, LogIn, Menu, Plus } from 'react-feather'
 import Avatar from './Avatar'
 type Profiles = Database['public']['Tables']['profiles']['Row']
 
-function Navbar() {
+type Props = {
+  username: string
+}
+
+function Navbar({ username }: Props) {
   const supabase = useSupabaseClient<Database>()
   const user = useUser()
-  const [username, setUsername] = useState<Profiles['username']>(null)
-  const [avatarUrl, setAvatarUrl] = useState<Profiles['avatar_url']>(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    async function getProfile() {
-      try {
-        setLoading(true)
-        if (!user) throw new Error('No user')
-
-        let { data, error, status } = await supabase
-          .from('profiles')
-          .select(`username, avatar_url`)
-          .eq('id', user.id)
-          .single()
-
-        if (data) {
-          setUsername(data.username)
-          setAvatarUrl(data.avatar_url)
-        }
-
-        if (error && status !== 406) {
-          throw error
-        }
-      } catch (error) {
-        console.log(error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    if (user) {
-      getProfile()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user])
 
   const signInButton = (
-    <Link href="/auth" className="btn-ghost btn">
-      Sign In
+    <Link
+      href="/auth"
+      className="btn-ghost btn flex items-center gap-x-3 normal-case"
+    >
+      <LogIn size={24} />
+      <span>Sign In / Sign Up</span>
     </Link>
   )
 
-  const signOutButton = (
-    <button onClick={() => supabase.auth.signOut()} className="btn-ghost btn">
-      Sign Out
-    </button>
-  )
   const userDropDown = (
     <div className="dropdown-bottom dropdown">
       <label tabIndex={0} className="btn-ghost btn">
@@ -95,12 +63,12 @@ function Navbar() {
     topRight = signInButton
   }
   return (
-    <nav className="navbar sticky top-0 z-50 col-span-3 flex w-full justify-center bg-primary text-primary-content">
+    <nav className="navbar sticky top-0 z-50 col-span-3 flex w-full justify-center bg-primary text-primary-content lg:hidden">
       <div className="container flex w-full justify-between">
         <div className="flex">
           <label
             htmlFor="drawer"
-            className="drawer-button btn-ghost btn-square btn lg:hidden"
+            className="btn-ghost btn drawer-button btn-square lg:hidden"
           >
             <Menu size={24} />
           </label>

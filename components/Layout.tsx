@@ -93,15 +93,15 @@ export default function Layout({ children }: Props) {
     <div className="drawer-mobile drawer">
       <input id="drawer" className="drawer-toggle" type="checkbox" />
       <div className="drawer-content overflow-x-hidden">
-        <Navbar />
+        <Navbar username={username} />
         <main className="flex flex-col">{children}</main>
       </div>
-      <div className="drawer-side">
+      <div className="drawer-side shadow">
         <label htmlFor="drawer" className="drawer-overlay"></label>
         <aside className="flex h-full min-h-0 w-80 flex-col bg-base-100">
           <div className="flex h-16 w-full items-center px-4">
             <Link
-              className="btn btn-ghost w-full justify-start gap-x-3 text-base normal-case text-primary"
+              className="btn-ghost btn w-full justify-start gap-x-3 text-base normal-case text-primary"
               href="/notes/new"
             >
               <FilePlus size={24} />
@@ -148,7 +148,7 @@ export default function Layout({ children }: Props) {
                 </div> */}
                 <div className="flex h-16 w-full items-center px-4">
                   <Link
-                    className="btn btn-ghost w-full justify-start  gap-x-3 text-base normal-case text-primary"
+                    className="btn-ghost btn w-full justify-start  gap-x-3 text-base normal-case text-primary"
                     href={username ? `/${username}` : `/profile`}
                   >
                     <User size={24} />
@@ -159,7 +159,7 @@ export default function Layout({ children }: Props) {
                 </div>
                 <div className="flex h-16 w-full items-center px-4">
                   <Link
-                    className="btn btn-ghost w-full justify-start  gap-x-3 text-base normal-case text-primary"
+                    className="btn-ghost btn w-full justify-start  gap-x-3 text-base normal-case text-primary"
                     href="/profile"
                   >
                     <Edit2 size={24} />
@@ -170,7 +170,7 @@ export default function Layout({ children }: Props) {
                 </div>
                 <div className="flex h-16 w-full items-center px-4">
                   <Link
-                    className="btn btn-ghost w-full justify-start  gap-x-3 text-base normal-case text-primary"
+                    className="btn-ghost btn w-full justify-start  gap-x-3 text-base normal-case text-primary"
                     href="/auth"
                   >
                     <LogOut size={24} />
@@ -186,11 +186,11 @@ export default function Layout({ children }: Props) {
                 </div>
                 <div className="flex h-16 w-full items-center px-4">
                   <Link
-                    className="btn btn-ghost w-full justify-start  gap-x-3 text-base normal-case text-primary"
+                    className="btn-ghost btn w-full justify-start  gap-x-3 text-base normal-case text-primary"
                     href="/auth"
                   >
                     <LogIn size={24} />
-                    <span className="font-normal">Sign in / Sing up</span>
+                    <span className="font-normal">Sign In / Sign Up</span>
                   </Link>
                 </div>
               </>
