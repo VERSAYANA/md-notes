@@ -177,6 +177,10 @@ export interface Database {
           avatar_url: string
         }[]
       }
+      get_user_tags_with_notes_count: {
+        Args: { p_user_id: string }
+        Returns: { tag_name: string; notes_count: number }[]
+      }
       update_tags: {
         Args: { p_note_id: string; p_names: string[] }
         Returns: { name: string }[]
