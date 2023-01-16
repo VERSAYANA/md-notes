@@ -79,7 +79,9 @@ function Notes({ id }: Props) {
       }
     }
 
-    getNoteById()
+    if (id) {
+      getNoteById()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
 
