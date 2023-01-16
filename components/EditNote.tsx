@@ -100,11 +100,11 @@ function EditNote({
           <input
             defaultValue={title}
             {...register('title', { required: true })}
-            className="input-bordered input min-h-12 flex-1"
+            className="input-bordered input min-h-12 flex-1 shadow-sm"
             placeholder="Title"
           />
           <div className="flex gap-4">
-            <div className="btn-group">
+            <div className="btn-group rounded-full shadow-sm">
               <button
                 type="button"
                 onClick={() => setIsPublicState(true)}
@@ -122,7 +122,9 @@ function EditNote({
             </div>
             <button
               type="submit"
-              className={`btn btn-accent flex-1 ${isSaving ? 'loading' : ''}`}
+              className={`btn btn-accent flex-1 shadow-sm ${
+                isSaving ? 'loading' : ''
+              }`}
             >
               Save
             </button>
@@ -134,7 +136,7 @@ function EditNote({
         <input className="input-bordered input" placeholder="tag" />
       </div> */}
 
-      <div className="bytemd-container flex w-full flex-1 overflow-x-hidden">
+      <div className="bytemd-container flex w-full flex-1 overflow-x-hidden shadow-sm">
         <Editor
           value={contentInputValue}
           plugins={plugins}
