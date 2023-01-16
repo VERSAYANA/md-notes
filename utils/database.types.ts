@@ -107,6 +107,22 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
+      get_note_by_id: {
+        Args: { n_note_id: string }
+        Returns: {
+          id: string
+          title: string
+          content: string
+          is_public: boolean
+          updated_at: string
+          created_at: string
+          tags: string[]
+          user_id: string
+          username: string
+          full_name: string
+          avatar_url: string
+        }[]
+      }
       get_notes_by_tag: {
         Args: { p_tag_name: string }
         Returns: {

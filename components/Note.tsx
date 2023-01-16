@@ -9,8 +9,22 @@ import highlight from '@bytemd/plugin-highlight-ssr'
 import math from '@bytemd/plugin-math-ssr'
 import breaks from '@bytemd/plugin-breaks'
 import { Dialog } from '@headlessui/react'
+import Avatar from './Avatar'
+import dayjs from '../utils/dayjs'
 
-type Notes = Database['public']['Tables']['notes']['Row']
+type Note = {
+  id: string
+  title: string
+  content: string
+  is_public: boolean
+  updated_at: string
+  created_at: string
+  tags: string[]
+  user_id: string
+  username: string
+  full_name: string
+  avatar_url: string
+} | null
 
 type Props = {
   id: string
@@ -33,16 +47,21 @@ function Notes({ id }: Props) {
   const [isDeleting, setIsDeleting] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const supabase = useSupabaseClient<Database>()
-  const [note, setNote] = useState<Notes>()
+  const [note, setNote] = useState<Note>()
 
   useEffect(() => {
-    async function getNotes() {
+    async function getNoteById() {
       try {
         setIsLoading(true)
-        let { data, error, status } = await supabase
-          .from('notes')
-          .select(`*`)
-          .eq('id', id)
+        // let { data, error, status } = await supabase
+        //   .from('notes')
+        //   .select(`*`)
+        //   .eq('id', id)
+        //   .single()
+
+        const { data, error, status } = await supabase
+          .rpc('get_note_by_id', { n_note_id: id })
+          .select()
           .single()
 
         if (error && status !== 406) {
@@ -59,7 +78,7 @@ function Notes({ id }: Props) {
       }
     }
 
-    getNotes()
+    getNoteById()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
 
@@ -82,9 +101,23 @@ function Notes({ id }: Props) {
 
   return (
     <>
-      <div className="container mx-auto flex w-full flex-1 flex-col p-4 pt-8">
+      <div className="container mx-auto flex h-full w-full flex-1 flex-col px-6 pb-4 pt-8">
         {note ? (
-          <div className="flex flex-col">
+          <div className="flex h-full flex-col">
+            <div className="mb-10 mt-2 flex items-center gap-x-4">
+              <Link
+                href={`/${note.username ? note.username : ''}`}
+                className="flex h-12 gap-x-4"
+              >
+                <Avatar url={note.avatar_url || ''} height={48} width={48} />
+                <span className="flex h-full items-center text-lg">
+                  {note.full_name ? note.full_name : note.username || ''}
+                </span>
+              </Link>
+              <p className="flex h-full flex-1 items-center justify-end opacity-70">
+                {dayjs(note.updated_at).fromNow(true)} ago
+              </p>
+            </div>
             <div className="mb-6 flex items-center justify-between">
               <h2 className="text-xl font-bold">{note.title}</h2>
               {user ? (
@@ -101,17 +134,16 @@ function Notes({ id }: Props) {
                 </div>
               ) : null}
             </div>
-            <div className="flex flex-1 justify-center">
+            <div className="flex flex-1 justify-center rounded-lg bg-base-100 px-6 py-4 shadow-md">
               <Viewer value={note.content || ''} plugins={plugins} />
             </div>
-            <p>{new Date(note.updated_at).toLocaleDateString()}</p>
           </div>
         ) : null}
       </div>
       <Dialog
         open={isOpen}
         onClose={() => setIsOpen(false)}
-        className="relative  z-50"
+        className="relative z-50"
       >
         <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
         <div className="fixed inset-0 flex items-center  justify-center p-4">

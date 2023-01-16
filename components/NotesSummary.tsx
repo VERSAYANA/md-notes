@@ -3,11 +3,9 @@ import { Eye, Lock } from 'react-feather'
 import { Database } from '../utils/database.types'
 import type { NoteSummary } from '../utils/types'
 import { useRouter } from 'next/router'
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
-import Avatar from './Avatar'
 
-dayjs.extend(relativeTime)
+import Avatar from './Avatar'
+import dayjs from '../utils/dayjs'
 
 type Props = {
   notes: NoteSummary[]
@@ -38,7 +36,7 @@ function NotesSummary({
               </span>
             </Link>
             <p className="flex h-full flex-1 items-center justify-end opacity-70">
-              {dayjs(note.updated_at).fromNow(true)}
+              {dayjs(note.updated_at).fromNow(true)} ago
             </p>
           </div>
           <Link
