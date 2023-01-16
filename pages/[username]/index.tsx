@@ -56,8 +56,6 @@ function UserNotesPage() {
           .select()
           .order('updated_at', { ascending: false })
 
-        console.log(data)
-
         if (error && status !== 406) {
           throw error
         }

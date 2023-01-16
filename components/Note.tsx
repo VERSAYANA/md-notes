@@ -148,15 +148,19 @@ function Notes({ id }: Props) {
               <Viewer value={note.content || ''} plugins={plugins} />
             </div>
             <div className="items-cente mt-4 flex flex-wrap gap-2">
-              {note.tags.map((tag) => (
-                <Link
-                  href={`/tag/${tag}`}
-                  className="rounded-full bg-base-100 px-3 py-2 shadow"
-                  key={tag}
-                >
-                  {tag}
-                </Link>
-              ))}
+              {note.tags.map((tag) => {
+                if (tag !== null) {
+                  return (
+                    <Link
+                      href={`/tag/${tag}`}
+                      className="rounded-full bg-base-100 px-3 py-2 shadow"
+                      key={tag}
+                    >
+                      {tag}
+                    </Link>
+                  )
+                }
+              })}
             </div>
           </div>
         ) : null}
