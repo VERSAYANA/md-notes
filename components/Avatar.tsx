@@ -20,7 +20,8 @@ export default function Avatar({
   onUpload?: (url: string) => void
 }) {
   const supabase = useSupabaseClient<Database>()
-  const [avatarUrl, setAvatarUrl] = useState<Profiles['avatar_url']>(null)
+  const [avatarUrl, setAvatarUrl] =
+    useState<Profiles['avatar_url']>('/anonymous.jpg')
   const [uploading, setUploading] = useState(false)
 
   useEffect(() => {
@@ -35,7 +36,7 @@ export default function Avatar({
         const url = URL.createObjectURL(data)
         setAvatarUrl(url)
       } catch (error) {
-        console.log('Error downloading image: ', error)
+        console.error('Error downloading image: ', error)
       }
     }
     if (url) downloadImage(url)
@@ -90,8 +91,8 @@ export default function Avatar({
             className="rounded-full bg-neutral-focus text-neutral-content"
             style={{ width: width }}
           >
-            <span className={`${width < 48 ? 'text-xs' : 'text-3xl'}`}>
-              {width < 48 ? 'You' : 'Profile Picture'}
+            <span className={`${width <= 64 ? 'text-base' : 'text-3xl'}`}>
+              {width <= 64 ? 'A' : 'A'}
             </span>
           </div>
         </div>

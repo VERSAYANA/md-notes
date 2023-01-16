@@ -17,7 +17,7 @@ type Props = {
 function UserInformation({ profile }: Props) {
   return (
     <section className="flex flex-1 flex-col">
-      {profile.avatar_url && <Avatar url={profile.avatar_url} />}
+      <Avatar url={profile.avatar_url || ''} />
       <div className="mt-4 flex flex-col items-center justify-center">
         {profile.full_name && (
           <h2 className="text-2xl font-bold">{profile.full_name}</h2>
@@ -32,7 +32,7 @@ function UserInformation({ profile }: Props) {
 
       <div className="my-5 flex items-center justify-center gap-2">
         {profile.twitter && (
-          <button className="btn-ghost btn-square btn">
+          <button className="btn-ghost btn btn-square">
             <a
               href={`${getValidUrlFromUsernameOrUrl(
                 profile.twitter,
@@ -46,7 +46,7 @@ function UserInformation({ profile }: Props) {
           </button>
         )}
         {profile.github && (
-          <button className="btn-ghost btn-square btn">
+          <button className="btn-ghost btn btn-square">
             <a
               href={`${getValidUrlFromUsernameOrUrl(
                 profile.github,
@@ -60,7 +60,7 @@ function UserInformation({ profile }: Props) {
           </button>
         )}
         {profile.linkedin && (
-          <button className="btn-ghost btn-square btn">
+          <button className="btn-ghost btn btn-square">
             <a
               href={`${getValidUrlFromUsernameOrUrl(
                 profile.linkedin,
@@ -74,7 +74,7 @@ function UserInformation({ profile }: Props) {
           </button>
         )}
         {profile.instagram && (
-          <button className="btn-ghost btn-square btn">
+          <button className="btn-ghost btn btn-square">
             <a
               href={`${getValidUrlFromUsernameOrUrl(
                 profile.instagram,
