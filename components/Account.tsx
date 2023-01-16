@@ -46,43 +46,45 @@ export default function Account({ session }: { session: Session }) {
     })
   const formData = watch()
 
-  useEffect(() => {
-    async function getProfile() {
-      try {
-        setLoading(true)
-        if (!user) throw new Error('No user')
+  async function getProfile() {
+    try {
+      setLoading(true)
+      if (!user) throw new Error('No user')
 
-        let { data, error, status } = await supabase
-          .from('profiles')
-          .select(
-            `username, website, avatar_url, full_name, twitter, github, instagram, tiktok, linkedin, bio`
-          )
-          .eq('id', user.id)
-          .single()
+      let { data, error, status } = await supabase
+        .from('profiles')
+        .select(
+          `username, website, avatar_url, full_name, twitter, github, instagram, tiktok, linkedin, bio`
+        )
+        .eq('id', user.id)
+        .single()
 
-        if (error && status !== 406) {
-          throw error
-        }
-
-        if (data) {
-          setValue('username', data.username || '')
-          setValue('website', data.website || '')
-          setValue('fullName', data.full_name || '')
-          setValue('twitter', data.twitter || '')
-          setValue('github', data.github || '')
-          setValue('instagram', data.instagram || '')
-          setValue('tiktok', data.tiktok || '')
-          setValue('linkedin', data.linkedin || '')
-          setValue('bio', data.bio || '')
-          setAvatarUrl(data.avatar_url)
-        }
-      } catch (error) {
-        alert('Error loading user data!')
-        console.error(error)
-      } finally {
-        setLoading(false)
+      if (error && status !== 406) {
+        throw error
       }
+
+      if (data) {
+        setValue('username', data.username || '')
+        setValue('website', data.website || '')
+        setValue('fullName', data.full_name || '')
+        setValue('twitter', data.twitter || '')
+        setValue('github', data.github || '')
+        setValue('instagram', data.instagram || '')
+        setValue('tiktok', data.tiktok || '')
+        setValue('linkedin', data.linkedin || '')
+        setValue('bio', data.bio || '')
+        setAvatarUrl(data.avatar_url)
+        setUsername(data.username || '')
+      }
+    } catch (error) {
+      alert('Error loading user data!')
+      console.error(error)
+    } finally {
+      setLoading(false)
     }
+  }
+
+  useEffect(() => {
     if (user) {
       getProfile()
     }
@@ -134,6 +136,7 @@ export default function Account({ session }: { session: Session }) {
       let { error } = await supabase.from('profiles').upsert(updates)
       if (error) throw error
       alert('Profile updated!')
+      getProfile()
     } catch (error) {
       alert('Error updating the data!')
       console.error(error)
@@ -184,8 +187,8 @@ export default function Account({ session }: { session: Session }) {
         </label>
         <input
           {...register('username')}
-          disabled={!!formData.username}
-          className={`input-bordered input w-full disabled:bg-base-300`}
+          disabled={!!username}
+          className={`input-bordered input-accent input w-full disabled:bg-base-300`}
           id="username"
           type="text"
         />
@@ -281,20 +284,17 @@ export default function Account({ session }: { session: Session }) {
       </div>
 
       <div className="my-4 flex justify-end gap-x-2">
-        <div>
-          {/* <button
-            className="btn-warning btn w-full"
-            onClick={() => supabase.auth.signOut()}
-          >
-            Sign Out
-          </button> */}
-          <Link
-            href={`/${formData.username}`}
-            className="btn btn-warning w-full normal-case"
-          >
-            Visit Profile
-          </Link>
-        </div>
+        {username && (
+          <div>
+            <Link
+              href={`/${formData.username}`}
+              className="btn btn-warning w-full normal-case"
+            >
+              Visit Profile
+            </Link>
+          </div>
+        )}
+
         <div>
           <button
             className={`btn btn-accent w-full normal-case ${
