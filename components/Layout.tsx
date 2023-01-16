@@ -143,7 +143,7 @@ export default function Layout({ children }: Props) {
                   >
                     <User size={24} />
                     <span className="font-normal uppercase">
-                      {username || ''}
+                      {username || 'Profile'}
                     </span>
                   </Link>
                 </div>
@@ -159,20 +159,25 @@ export default function Layout({ children }: Props) {
                   </Link>
                 </div>
                 <div className="flex h-16 w-full items-center px-4">
-                  <Link
+                  <button
+                    onClick={() => supabase.auth.signOut()}
                     className="btn-ghost btn w-full justify-start  gap-x-3 text-base normal-case text-primary"
-                    href="/auth"
                   >
                     <LogOut size={24} />
                     <span className="font-normal">Log out</span>
-                  </Link>
+                  </button>
                 </div>
               </>
             ) : (
               <>
-                <div className="flex h-16 w-full items-center gap-x-3 px-8 text-base">
-                  <User size={24} />
-                  <span className="uppercase">Anonymous</span>
+                <div className="flex h-16 w-full items-center px-4">
+                  <Link
+                    href={'/anonymous'}
+                    className="btn-ghost btn w-full justify-start  gap-x-3 text-base normal-case text-primary"
+                  >
+                    <User size={24} />
+                    <span className="font-normal uppercase">Anonymous</span>
+                  </Link>
                 </div>
                 <div className="flex h-16 w-full items-center px-4">
                   <Link

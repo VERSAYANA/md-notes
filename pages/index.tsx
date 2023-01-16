@@ -10,32 +10,36 @@ export default function Home() {
   const session = useSession()
   const supabase = useSupabaseClient()
 
+  // useEffect(() => {
+  //   async function getUsername() {
+  //     try {
+  //       if (!session?.user) throw new Error('No user')
+
+  //       let { data, error, status } = await supabase
+  //         .from('profiles')
+  //         .select(`username`)
+  //         .eq('id', session?.user.id)
+  //         .single()
+
+  //       if (error && status !== 406) {
+  //         throw error
+  //       }
+  //       if (data) {
+  //         router.push(`/${data.username}/notes`)
+  //       }
+  //     } catch (error) {
+  //       console.error(error)
+  //     }
+  //   }
+  //   if (session?.user) {
+  //     getUsername()
+  //   }
+  // }, [session])
   useEffect(() => {
-    async function getUsername() {
-      try {
-        if (!session?.user) throw new Error('No user')
-
-        let { data, error, status } = await supabase
-          .from('profiles')
-          .select(`username`)
-          .eq('id', session?.user.id)
-          .single()
-
-        if (error && status !== 406) {
-          throw error
-        }
-        if (data) {
-          router.push(`/${data.username}/notes`)
-        }
-      } catch (error) {
-        console.error(error)
-      }
+    if (router) {
+      router.push('/notes/new')
     }
-    if (session?.user) {
-      getUsername()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session])
+  }, [router])
 
   return (
     <>
@@ -46,7 +50,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="container mx-auto flex justify-center">
-        <div className="flex w-full max-w-4xl items-center justify-center p-4">
+        {/* <div className="flex w-full max-w-4xl items-center justify-center p-4">
           {!session ? (
             <div className="w-full">
               <Auth
@@ -58,7 +62,7 @@ export default function Home() {
               />
             </div>
           ) : null}
-        </div>
+        </div> */}
       </div>
     </>
   )

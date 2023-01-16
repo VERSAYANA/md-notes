@@ -44,13 +44,6 @@ function NewNote() {
       getUsername()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  useEffect(() => {
-    if (!isLoading && !user) {
-      router.push('/auth')
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
 
   async function submitUsername(username: Profiles['username']) {
@@ -93,7 +86,11 @@ function NewNote() {
           .delete()
           .eq('note_id', noteId as string)
 
-        if (updateTagsError) throw updateTagsError
+        if (updateTagsError) {
+          throw updateTagsError
+        } else {
+          router.push(`/notes/${noteId}`)
+        }
       }
     } catch (error) {
       console.error(error)
@@ -106,15 +103,18 @@ function NewNote() {
     title: Notes['title'],
     content: Notes['content'],
     isPublic: Notes['is_public'],
-    tags: string[]
+    tags: string[] = []
   ) {
     try {
       setIsSaving(true)
-      if (!user) throw new Error('No user')
+      const user_id = user
+        ? user.id
+        : (process.env.NEXT_PUBLIC_ANONYMOUS as string)
+
       let { error, data } = await supabase
         .from('notes')
         .insert({
-          user_id: user.id,
+          user_id: user_id,
           content,
           title,
           is_public: isPublic,
@@ -123,7 +123,7 @@ function NewNote() {
         .single()
 
       if (error) {
-        throw error
+        console.error(error)
       }
       if (data) {
         updateNoteTags(data.id, tags)
@@ -143,7 +143,7 @@ function NewNote() {
     )
   }
 
-  if (!username) {
+  if (!username && user) {
     return (
       <div className="container mx-auto flex flex-1 items-center justify-center p-4">
         <div className="flex w-full max-w-2xl items-end justify-center gap-2">
@@ -161,7 +161,7 @@ function NewNote() {
           </div>
           <div>
             <button
-              className={`btn-accent btn w-full ${isSaving ? 'loading' : ''}`}
+              className={`btn btn-accent w-full ${isSaving ? 'loading' : ''}`}
               onClick={() => submitUsername(usernameInputValue.toLowerCase())}
               disabled={isSaving}
             >
@@ -175,7 +175,7 @@ function NewNote() {
 
   return (
     <div className="container mx-auto flex flex-1 flex-col px-4 py-4 md:py-6">
-      <EditNote saveNote={saveNote} isSaving={isSaving} isPublic={false} />
+      <EditNote saveNote={saveNote} isSaving={isSaving} isPublic={true} />
     </div>
   )
 }

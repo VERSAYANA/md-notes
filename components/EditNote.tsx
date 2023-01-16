@@ -8,6 +8,7 @@ import breaks from '@bytemd/plugin-breaks'
 import { formatTagString, tagsToSet } from '../utils/functions'
 import { X } from 'react-feather'
 import Link from 'next/link'
+import { useUser } from '@supabase/auth-helpers-react'
 
 interface EditNoteFormInput {
   title: string
@@ -54,6 +55,7 @@ function EditNote({
   id = '',
 }: Props) {
   const { register, handleSubmit } = useForm<EditNoteFormInput>()
+  const user = useUser()
   const [isPublicState, setIsPublicState] = useState(isPublic)
   const [contentInputValue, setContentInputValue] = useState('')
   const [isTagInputOpen, setIsTagInputOpen] = useState(false)
@@ -115,7 +117,9 @@ function EditNote({
               >
                 Public
               </button>
+
               <button
+                disabled={!user}
                 type="button"
                 onClick={() => setIsPublicState(false)}
                 className={`btn ${isPublicState ? '' : 'btn-active'}`}
