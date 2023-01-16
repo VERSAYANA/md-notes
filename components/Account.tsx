@@ -65,10 +65,6 @@ export default function Account({ session }: { session: Session }) {
         }
 
         if (data) {
-          // setUsername(data.username)
-          console.log(data.username)
-          console.log(formData.username)
-
           setValue('username', data.username || '')
           setValue('website', data.website || '')
           setValue('fullName', data.full_name || '')
@@ -78,12 +74,11 @@ export default function Account({ session }: { session: Session }) {
           setValue('tiktok', data.tiktok || '')
           setValue('linkedin', data.linkedin || '')
           setValue('bio', data.bio || '')
-
           setAvatarUrl(data.avatar_url)
         }
       } catch (error) {
         alert('Error loading user data!')
-        console.log(error)
+        console.error(error)
       } finally {
         setLoading(false)
       }
@@ -141,7 +136,7 @@ export default function Account({ session }: { session: Session }) {
       alert('Profile updated!')
     } catch (error) {
       alert('Error updating the data!')
-      console.log(error)
+      console.error(error)
     } finally {
       setLoading(false)
     }
@@ -295,14 +290,14 @@ export default function Account({ session }: { session: Session }) {
           </button> */}
           <Link
             href={`/${formData.username}`}
-            className="btn-warning btn w-full normal-case"
+            className="btn btn-warning w-full normal-case"
           >
             Visit Profile
           </Link>
         </div>
         <div>
           <button
-            className={`btn-accent btn w-full normal-case ${
+            className={`btn btn-accent w-full normal-case ${
               loading ? 'loading' : ''
             }`}
             type="submit"

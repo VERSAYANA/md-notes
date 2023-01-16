@@ -27,18 +27,13 @@ export default function Layout({ children }: Props) {
   const [userNotesCount, setUserNotesCount] = useState(0)
   async function getUserTagsWithNotesCount(userId: string) {
     try {
-      console.log(userId)
-
       const { data, error } = await supabase
         .rpc('get_user_tags_with_notes_count', { p_user_id: userId })
         .select()
         .order('notes_count', { ascending: false })
 
       if (error) throw error
-
       if (data) setTagsWithNoteCount(data)
-
-      console.log(data)
     } catch (error) {
       console.error(error)
     }
@@ -52,12 +47,7 @@ export default function Layout({ children }: Props) {
         .eq('user_id', userId)
 
       if (error) throw error
-
-      console.log(data)
-
       if (data) setUserNotesCount(data.length)
-
-      console.log(data)
     } catch (error) {
       console.error(error)
     }
@@ -70,8 +60,6 @@ export default function Layout({ children }: Props) {
         .select('username')
         .eq('id', userId)
         .single()
-
-      console.log(data)
 
       if (error) throw error
       if (data) setUsername(data.username as string)
@@ -112,30 +100,32 @@ export default function Layout({ children }: Props) {
             {session?.user && (
               <>
                 <h4 className="px-8 pt-4 pb-2 text-base font-bold">My notes</h4>
-                <ul className="menu bg-base-100 px-4 text-base-content">
-                  <li>
-                    <Link
-                      className="flex justify-between text-base-content"
-                      href={`/${username}/notes`}
-                    >
-                      <span>All</span>
-                      <span className="opacity-75">{userNotesCount}</span>
-                    </Link>
-                  </li>
-                  {tagsWithNoteCount.map((tagWithNoteCount) => (
-                    <li key={tagWithNoteCount.tag_name}>
+                {username && (
+                  <ul className="menu bg-base-100 px-4 text-base-content">
+                    <li>
                       <Link
                         className="flex justify-between text-base-content"
-                        href={`/${username}/notes/tag/${tagWithNoteCount.tag_name}`}
+                        href={`/${username}/notes`}
                       >
-                        <span>{tagWithNoteCount.tag_name}</span>
-                        <span className="opacity-75">
-                          {tagWithNoteCount.notes_count}
-                        </span>
+                        <span>All</span>
+                        <span className="opacity-75">{userNotesCount}</span>
                       </Link>
                     </li>
-                  ))}
-                </ul>
+                    {tagsWithNoteCount.map((tagWithNoteCount) => (
+                      <li key={tagWithNoteCount.tag_name}>
+                        <Link
+                          className="flex justify-between text-base-content"
+                          href={`/${username}/notes/tag/${tagWithNoteCount.tag_name}`}
+                        >
+                          <span>{tagWithNoteCount.tag_name}</span>
+                          <span className="opacity-75">
+                            {tagWithNoteCount.notes_count}
+                          </span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </>
             )}
           </div>

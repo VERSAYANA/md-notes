@@ -68,9 +68,7 @@ export default function Avatar({
         onUpload(filePath)
       }
     } catch (error) {
-      console.log('error')
-      // alert('Error uploading avatar!')
-      console.log(error)
+      console.error('error')
     } finally {
       setUploading(false)
     }
@@ -100,7 +98,7 @@ export default function Avatar({
       )}
       {uid ? (
         <div className="my-4 w-60">
-          <label className="btn-secondary btn w-full" htmlFor="single">
+          <label className="btn btn-secondary w-full" htmlFor="single">
             {uploading ? 'Uploading ...' : 'Upload'}
           </label>
           <input

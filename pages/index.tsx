@@ -10,8 +10,6 @@ export default function Home() {
   const session = useSession()
   const supabase = useSupabaseClient()
 
-  console.log(session)
-
   useEffect(() => {
     async function getUsername() {
       try {
@@ -30,7 +28,7 @@ export default function Home() {
           router.push(`/${data.username}/notes`)
         }
       } catch (error) {
-        console.log(error)
+        console.error(error)
       }
     }
     if (session?.user) {

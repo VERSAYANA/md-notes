@@ -54,19 +54,15 @@ function UserNotesPage() {
           .select()
           .order('updated_at', { ascending: false })
 
-        console.log(data)
-
         if (error && status !== 406) {
           throw error
         }
-
-        console.log(data)
 
         if (data) {
           setNotes(data)
         }
       } catch (error) {
-        console.log(error)
+        console.error(error)
       } finally {
         setIsLoading(false)
       }

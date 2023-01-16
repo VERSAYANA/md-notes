@@ -33,8 +33,6 @@ export const getServerSideProps: GetServerSideProps<{
     .select()
     .order('updated_at', { ascending: false })
 
-  console.log(notes)
-
   if (error) throw error
 
   return {

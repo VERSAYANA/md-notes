@@ -21,8 +21,6 @@ function UserNotesByTagPage() {
         .select()
         .order('updated_at', { ascending: false })
 
-      console.log(notes)
-
       if (error) throw error
       if (notes) setNotes(notes)
     } catch (error) {
