@@ -7,6 +7,7 @@ import math from '@bytemd/plugin-math-ssr'
 import breaks from '@bytemd/plugin-breaks'
 import { formatTagString, tagsToSet } from '../utils/functions'
 import { X } from 'react-feather'
+import Link from 'next/link'
 
 interface EditNoteFormInput {
   title: string
@@ -19,6 +20,7 @@ type Props = {
   isLoading?: boolean
   isSaving: boolean
   isPublic: boolean
+  id?: string
   tags?: {
     name: string
   }[]
@@ -49,6 +51,7 @@ function EditNote({
   isSaving = false,
   saveNote,
   tags = [],
+  id = '',
 }: Props) {
   const { register, handleSubmit } = useForm<EditNoteFormInput>()
   const [isPublicState, setIsPublicState] = useState(isPublic)
@@ -96,14 +99,14 @@ function EditNote({
       className="flex w-full flex-1 flex-col gap-4 md:gap-6"
     >
       <div className="flex gap-4">
-        <div className="flex flex-1 flex-col gap-4 sm:flex-row">
+        <div className="flex flex-1 flex-col gap-4 md:flex-row">
           <input
             defaultValue={title}
             {...register('title', { required: true })}
             className="input-bordered input min-h-12 flex-1 shadow-sm"
             placeholder="Title"
           />
-          <div className="flex gap-4">
+          <div className="flex gap-3">
             <div className="btn-group rounded-full shadow-sm">
               <button
                 type="button"
@@ -120,14 +123,26 @@ function EditNote({
                 Private
               </button>
             </div>
-            <button
-              type="submit"
-              className={`btn btn-accent flex-1 shadow-sm ${
-                isSaving ? 'loading' : ''
-              }`}
-            >
-              Save
-            </button>
+            <div className="flex w-full items-center gap-x-2">
+              {id && (
+                <Link
+                  href={`/notes/${id}`}
+                  target="_blank"
+                  className={`btn btn-warning flex-1 shadow-sm`}
+                >
+                  View
+                </Link>
+              )}
+
+              <button
+                type="submit"
+                className={`btn btn-accent flex-1 shadow-sm ${
+                  isSaving ? 'loading' : ''
+                }`}
+              >
+                {isPublicState ? 'Publish' : 'Save'}
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -201,14 +216,6 @@ function EditNote({
             <span>{tag}</span>
           </div>
         ))}
-        {/* {Array.from(tagsState).map((tag) => (
-          <div
-            className="flex items-center rounded-full bg-base-100 py-2 px-3 shadow-sm"
-            key={tag}
-          >
-            {tag}
-          </div>
-        ))} */}
       </div>
     </form>
   )

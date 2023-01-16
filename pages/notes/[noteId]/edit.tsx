@@ -129,6 +129,7 @@ function EditNotePage() {
         title={note?.title ? note?.title : ''}
         content={note?.content ? note?.content : ''}
         isPublic={note?.is_public ? note?.is_public : false}
+        id={note?.id || ''}
         isLoading={isLoading}
         saveNote={saveNote}
         isSaving={isSaving}
