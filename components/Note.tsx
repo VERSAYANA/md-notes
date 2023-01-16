@@ -11,6 +11,7 @@ import breaks from '@bytemd/plugin-breaks'
 import { Dialog } from '@headlessui/react'
 import Avatar from './Avatar'
 import dayjs from '../utils/dayjs'
+import { Delete, Edit, Trash, Trash2 } from 'react-feather'
 
 type Note = {
   id: string
@@ -101,41 +102,59 @@ function Notes({ id }: Props) {
 
   return (
     <>
-      <div className="container mx-auto flex h-full w-full flex-1 flex-col px-6 pb-4 pt-8">
+      <div className="container mx-auto flex h-full w-full flex-1 flex-col px-4 pb-4 pt-8 md:px-6">
         {note ? (
           <div className="flex h-full flex-col">
-            <div className="mb-10 mt-2 flex items-center gap-x-4">
+            <div className="mb-10 mt-2 flex items-center justify-between gap-x-4">
               <Link
                 href={`/${note.username ? note.username : ''}`}
                 className="flex h-12 gap-x-4"
               >
                 <Avatar url={note.avatar_url || ''} height={48} width={48} />
-                <span className="flex h-full items-center text-lg">
+                <span className="text-md flex h-full items-center md:text-lg">
                   {note.full_name ? note.full_name : note.username || ''}
                 </span>
               </Link>
-              <p className="flex h-full flex-1 items-center justify-end opacity-70">
+              <p className="flex h-full items-center justify-end text-sm opacity-70">
                 {dayjs(note.updated_at).fromNow(true)} ago
               </p>
             </div>
-            <div className="mb-6 flex items-center justify-between">
-              <h2 className="text-xl font-bold">{note.title}</h2>
-              {user ? (
+            <div className="mb-6 flex items-center justify-between gap-x-2">
+              <div className="flex flex-1">
+                <h2 className="text-lg font-bold md:text-xl">{note.title}</h2>
+              </div>
+              {user && note.user_id === user.id ? (
                 <div className="flex items-center gap-x-2">
                   <button
                     onClick={() => setIsOpen(true)}
-                    className="btn-error btn"
+                    className="btn-error btn m-0 h-12 w-12 gap-x-2 p-0 md:h-auto md:w-auto md:px-4"
                   >
-                    Delete
+                    <Trash2 />
+                    <span className="hidden md:block">Delete</span>
                   </button>
-                  <Link href={`${id}/edit`} className="btn">
-                    Edit
+                  <Link
+                    href={`${id}/edit`}
+                    className="btn m-0 h-12 w-12 gap-x-2 p-0 md:h-auto md:w-auto md:px-4"
+                  >
+                    <Edit />
+                    <span className="hidden md:block">Edit</span>
                   </Link>
                 </div>
               ) : null}
             </div>
             <div className="flex flex-1 justify-center rounded-lg bg-base-100 px-6 py-4 shadow-md">
               <Viewer value={note.content || ''} plugins={plugins} />
+            </div>
+            <div className="items-cente mt-4 flex flex-wrap gap-2">
+              {note.tags.map((tag) => (
+                <Link
+                  href={`/tag/${tag}`}
+                  className="rounded-full bg-base-100 px-3 py-2 shadow"
+                  key={tag}
+                >
+                  {tag}
+                </Link>
+              ))}
             </div>
           </div>
         ) : null}
