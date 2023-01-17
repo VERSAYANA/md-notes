@@ -1,5 +1,6 @@
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
 import { Auth, ThemeSupa } from '@supabase/auth-ui-react'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
@@ -16,21 +17,26 @@ function AuthPage() {
   }, [session])
 
   return (
-    <main className="container mx-auto flex justify-center">
-      <div className="flex w-full max-w-2xl items-center justify-center p-4">
-        {!session ? (
-          <div className="w-full">
-            <Auth
-              supabaseClient={supabase}
-              appearance={{
-                theme: ThemeSupa,
-              }}
-              theme="default"
-            />
-          </div>
-        ) : null}
+    <>
+      <Head>
+        <title>Sign In / Sign Up</title>
+      </Head>
+      <div className="container mx-auto flex justify-center">
+        <div className="flex w-full max-w-2xl items-center justify-center p-4">
+          {!session ? (
+            <div className="w-full">
+              <Auth
+                supabaseClient={supabase}
+                appearance={{
+                  theme: ThemeSupa,
+                }}
+                theme="default"
+              />
+            </div>
+          ) : null}
+        </div>
       </div>
-    </main>
+    </>
   )
 }
 

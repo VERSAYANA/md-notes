@@ -1,6 +1,7 @@
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
+import Head from 'next/head'
 
 import NotesSummary from '@/components/NotesSummary'
 import type { Database } from '@/utils/database.types'
@@ -75,9 +76,16 @@ function UserNotesPage() {
   }, [userId])
 
   return (
-    <div className="containter flex h-full w-full flex-1 flex-col items-center justify-center p-4 md:p-8">
-      <NotesSummary notes={notes} showPublicPrivateIcon={true} />
-    </div>
+    <>
+      <Head>
+        <title>{`${
+          username ? (username as string).toUpperCase() : 'User'
+        } Notes`}</title>
+      </Head>
+      <div className="containter flex h-full w-full flex-1 flex-col items-center justify-center p-4 md:p-8">
+        <NotesSummary notes={notes} showPublicPrivateIcon={true} />
+      </div>
+    </>
   )
 }
 

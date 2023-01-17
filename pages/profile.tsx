@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
 import Account from '@/components/Account'
+import Head from 'next/head'
 
 function Profile() {
   const session = useSession()
@@ -22,9 +23,14 @@ function Profile() {
 
   if (session) {
     return (
-      <div className="container mx-auto flex max-w-4xl flex-1 flex-col p-4 pt-8">
-        <Account session={session} />
-      </div>
+      <>
+        <Head>
+          <title>Profile</title>
+        </Head>
+        <div className="container mx-auto flex max-w-4xl flex-1 flex-col p-4 pt-8">
+          <Account session={session} />
+        </div>
+      </>
     )
   } else {
     return null

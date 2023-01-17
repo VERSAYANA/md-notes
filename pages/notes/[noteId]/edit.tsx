@@ -1,6 +1,7 @@
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import Head from 'next/head'
 
 import EditNote from '@/components/EditNote'
 import type { Database } from '@/utils/database.types'
@@ -126,22 +127,27 @@ function EditNotePage() {
   }
 
   return (
-    <div className="container mx-auto flex flex-1 flex-col px-4 py-4 md:py-6">
-      <EditNote
-        title={note?.title ? note?.title : ''}
-        content={note?.content ? note?.content : ''}
-        isPublic={note?.is_public ? note?.is_public : false}
-        id={note?.id || ''}
-        isLoading={isLoading}
-        saveNote={saveNote}
-        isSaving={isSaving}
-        tags={
-          (note?.tags as {
-            name: string
-          }[]) || []
-        }
-      />
-    </div>
+    <>
+      <Head>
+        <title>Edit Note</title>
+      </Head>
+      <div className="container mx-auto flex flex-1 flex-col px-4 py-4 md:py-6">
+        <EditNote
+          title={note?.title ? note?.title : ''}
+          content={note?.content ? note?.content : ''}
+          isPublic={note?.is_public ? note?.is_public : false}
+          id={note?.id || ''}
+          isLoading={isLoading}
+          saveNote={saveNote}
+          isSaving={isSaving}
+          tags={
+            (note?.tags as {
+              name: string
+            }[]) || []
+          }
+        />
+      </div>
+    </>
   )
 }
 

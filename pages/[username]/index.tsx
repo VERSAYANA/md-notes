@@ -2,6 +2,7 @@ import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
+import Head from 'next/head'
 
 import NotesSummary from '@/components/NotesSummary'
 import UserInformation from '@/components/UserInformation'
@@ -12,7 +13,7 @@ type Profiles = Database['public']['Tables']['profiles']['Row']
 
 function UserNotesPage() {
   const router = useRouter()
-  const { username } = router.query
+  const username = router.query.username as string
   const [isLoading, setIsLoading] = useState(false)
   const supabase = useSupabaseClient<Database>()
   const [notes, setNotes] = useState<NoteSummary[]>([])
@@ -78,18 +79,23 @@ function UserNotesPage() {
   }, [userId])
 
   return (
-    <div className="containter mx-auto flex h-full w-full max-w-4xl flex-col items-center justify-center p-4 md:p-8">
-      {profile && <UserInformation profile={profile} />}
-      <section className="flex w-full flex-col">
-        <div className="mb-4 mt-8 flex w-full items-center justify-between px-4">
-          <h3 className="text-2xl font-bold">Most Recent Notes</h3>
-          <Link className="" href={`/${username}/notes`}>
-            See more
-          </Link>
-        </div>
-        <NotesSummary notes={notes} showPublicPrivateIcon={true} />
-      </section>
-    </div>
+    <>
+      <Head>
+        <title>{username?.toUpperCase() || 'User Profile'}</title>
+      </Head>
+      <div className="containter mx-auto flex h-full w-full max-w-4xl flex-col items-center justify-center p-4 md:p-8">
+        {profile && <UserInformation profile={profile} />}
+        <section className="flex w-full flex-col">
+          <div className="mb-4 mt-8 flex w-full items-center justify-between px-4">
+            <h3 className="text-2xl font-bold">Most Recent Notes</h3>
+            <Link className="" href={`/${username}/notes`}>
+              See more
+            </Link>
+          </div>
+          <NotesSummary notes={notes} showPublicPrivateIcon={true} />
+        </section>
+      </div>
+    </>
   )
 }
 

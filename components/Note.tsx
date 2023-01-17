@@ -13,23 +13,10 @@ import { Edit, Trash2 } from 'react-feather'
 import Avatar from './Avatar'
 import type { Database } from '@/utils/database.types'
 import dayjs from '@/utils/dayjs'
-
-type Note = {
-  id: string
-  title: string
-  content: string
-  is_public: boolean
-  updated_at: string
-  created_at: string
-  tags: string[]
-  user_id: string
-  username: string
-  full_name: string
-  avatar_url: string
-} | null
+import type { Note } from '@/utils/types'
 
 type Props = {
-  id: string
+  note: Note
 }
 const plugins = [
   gfm(),
@@ -42,55 +29,19 @@ const plugins = [
   breaks(),
 ]
 
-function Notes({ id }: Props) {
+function Notes({ note }: Props) {
+  const id = note?.id
   const user = useUser()
   const router = useRouter()
-  const [isLoading, setIsLoading] = useState(true)
   const [isDeleting, setIsDeleting] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const supabase = useSupabaseClient<Database>()
-  const [note, setNote] = useState<Note>()
 
-  useEffect(() => {
-    async function getNoteById() {
-      try {
-        setIsLoading(true)
-        // let { data, error, status } = await supabase
-        //   .from('notes')
-        //   .select(`*`)
-        //   .eq('id', id)
-        //   .single()
-
-        const { data, error, status } = await supabase
-          .rpc('get_note_by_id', { n_note_id: id })
-          .select()
-          .single()
-
-        if (error && status !== 406) {
-          throw error
-        }
-
-        if (data) {
-          setNote(data)
-        }
-      } catch (error) {
-        console.error(error)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    if (id) {
-      getNoteById()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id])
-
-  async function deleteNote() {
+  async function deleteNote(noteId: string) {
     try {
       setIsDeleting(true)
       const { error } = await supabase.rpc('delete_note_with_tags', {
-        n_note_id: id,
+        n_note_id: noteId,
       })
       if (error) {
         throw error
@@ -194,7 +145,9 @@ function Notes({ id }: Props) {
               </button>
               <button
                 className={`btn-error btn ${isDeleting && 'loading'}`}
-                onClick={() => deleteNote()}
+                onClick={() => {
+                  if (id) deleteNote(id)
+                }}
               >
                 Delete
               </button>
