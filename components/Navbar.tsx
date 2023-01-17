@@ -29,9 +29,6 @@ function Navbar({ username }: Props) {
         <div className="flex items-center gap-4">
           <ChevronDown size={24} />
           {<span>{username ? username : 'Profile'}</span>}
-          {/* {avatarUrl ? (
-            <Avatar url={a} />
-          ) : null} */}
         </div>
       </label>
       1
@@ -70,12 +67,6 @@ function Navbar({ username }: Props) {
           >
             <Menu size={24} />
           </label>
-          {/* <Link href="/" className="btn-ghost btn flex">
-            <Home size={24} />
-          </Link>
-          <Link href="/notes/new" className="btn-ghost btn flex">
-            <FilePlus size={24} />
-          </Link> */}
         </div>
         <div className="flex">{topRight}</div>
       </div>

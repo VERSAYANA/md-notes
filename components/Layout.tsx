@@ -130,10 +130,6 @@ export default function Layout({ children }: Props) {
           <div className={`flex flex-col ${session?.user ? 'h-48' : 'h-32'}`}>
             {session?.user ? (
               <>
-                {/* <div className="flex h-16 w-full items-center gap-x-3 px-8 text-base">
-                  <User size={24} />
-                  <span className="uppercase">{username || ''}</span>
-                </div> */}
                 <div className="flex h-16 w-full items-center px-4">
                   <Link
                     className="btn-ghost btn w-full justify-start  gap-x-3 text-base normal-case text-primary"

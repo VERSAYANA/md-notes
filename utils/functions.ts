@@ -64,14 +64,3 @@ export function createUsername(name: string): string {
 
   return name
 }
-
-// export function setToTags(tagsSet: Set<string>): { name: string }[] {
-//   const tags: { name: string }[] = []
-//   for (const tag of tagsSet) {
-//     tags.push({
-//       name: tag,
-//     })
-//   }
-
-//   return tags
-// }

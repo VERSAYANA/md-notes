@@ -1,7 +1,7 @@
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Viewer } from '@bytemd/react'
 import gfm from '@bytemd/plugin-gfm'
 import highlight from '@bytemd/plugin-highlight-ssr'

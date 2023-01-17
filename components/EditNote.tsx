@@ -133,7 +133,7 @@ function EditNote({
                 <Link
                   href={`/notes/${id}`}
                   target="_blank"
-                  className={`btn-warning btn flex-1 shadow-sm`}
+                  className={`btn btn-warning flex-1 shadow-sm`}
                 >
                   View
                 </Link>
@@ -141,7 +141,7 @@ function EditNote({
 
               <button
                 type="submit"
-                className={`btn-accent btn flex-1 shadow-sm ${
+                className={`btn btn-accent flex-1 shadow-sm ${
                   isSaving ? 'loading' : ''
                 }`}
               >
@@ -151,10 +151,6 @@ function EditNote({
           </div>
         </div>
       </div>
-
-      {/* <div className="flex">
-        <input className="input-bordered input" placeholder="tag" />
-      </div> */}
 
       <div className="bytemd-container flex w-full flex-1 overflow-x-hidden shadow-sm">
         <Editor
@@ -200,7 +196,7 @@ function EditNote({
               }
             }}
             type="button"
-            className="btn-secondary btn rounded-full py-2 px-4 normal-case shadow-sm"
+            className="btn btn-secondary rounded-full py-2 px-4 normal-case shadow-sm"
           >
             Add new tag
           </button>

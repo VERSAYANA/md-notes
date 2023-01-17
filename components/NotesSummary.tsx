@@ -15,8 +15,6 @@ function NotesSummary({
   notes,
   showPublicPrivateIcon: showPublicPrivate = false,
 }: Props) {
-  const router = useRouter()
-
   return (
     <div className="container mx-auto flex h-full w-full max-w-4xl flex-col gap-y-8">
       {notes.map((note) => (
@@ -48,9 +46,6 @@ function NotesSummary({
             )}
           </Link>
 
-          {/* <div className="flex justify-end">
-            <button className="btn flex">Open note</button>
-          </div> */}
           <div className="flex justify-between">
             <div className="flex flex-wrap items-center gap-2">
               {note.tags.map(
