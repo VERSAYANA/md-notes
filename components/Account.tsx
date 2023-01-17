@@ -292,8 +292,8 @@ export default function Account({ session }: { session: Session }) {
         {dbUsername && (
           <div>
             <Link
-              href={`/${formData.username}`}
-              className="btn btn-warning w-full normal-case"
+              href={`/${dbUsername}`}
+              className="btn-warning btn w-full normal-case"
             >
               Visit Profile
             </Link>
@@ -302,7 +302,7 @@ export default function Account({ session }: { session: Session }) {
 
         <div>
           <button
-            className={`btn btn-accent w-full normal-case ${
+            className={`btn-accent btn w-full normal-case ${
               loading ? 'loading' : ''
             }`}
             type="submit"
