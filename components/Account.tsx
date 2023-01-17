@@ -4,6 +4,7 @@ import { Database } from '../utils/database.types'
 import Avatar from './Avatar'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import Link from 'next/link'
+import { createUsername } from '../utils/functions'
 type Profiles = Database['public']['Tables']['profiles']['Row']
 
 type ProfileInputs = {
@@ -22,7 +23,8 @@ export default function Account({ session }: { session: Session }) {
   const supabase = useSupabaseClient<Database>()
   const { user } = session
   const [loading, setLoading] = useState(true)
-  const [username, setUsername] = useState<Profiles['username']>(null)
+  const [dbUsername, setDbUsername] = useState<Profiles['username']>(null)
+  const [username, setUsername] = useState<string>('')
   const [avatar_url, setAvatarUrl] = useState<Profiles['avatar_url']>(null)
   const {
     register,
@@ -35,7 +37,7 @@ export default function Account({ session }: { session: Session }) {
     updateProfile({
       username: formData.username,
       website: formData.website,
-      avatar_url: avatar_url,
+      avatar_url: avatar_url || '',
       full_name: formData.fullName,
       github: formData.github,
       twitter: formData.twitter,
@@ -74,6 +76,7 @@ export default function Account({ session }: { session: Session }) {
         setValue('linkedin', data.linkedin || '')
         setValue('bio', data.bio || '')
         setAvatarUrl(data.avatar_url)
+        setDbUsername(data.username || '')
         setUsername(data.username || '')
       }
     } catch (error) {
@@ -103,16 +106,16 @@ export default function Account({ session }: { session: Session }) {
     linkedin,
     bio,
   }: {
-    username: Profiles['username']
-    website: Profiles['website']
-    avatar_url: Profiles['avatar_url']
-    full_name: Profiles['full_name']
-    twitter: Profiles['twitter']
-    github: Profiles['github']
-    instagram: Profiles['instagram']
-    tiktok: Profiles['tiktok']
-    linkedin: Profiles['linkedin']
-    bio: Profiles['bio']
+    username: string
+    website: string
+    avatar_url: string
+    full_name: string
+    twitter: string
+    github: string
+    instagram: string
+    tiktok: string
+    linkedin: string
+    bio: string
   }) {
     try {
       setLoading(true)
@@ -120,7 +123,7 @@ export default function Account({ session }: { session: Session }) {
 
       const updates = {
         id: user.id,
-        username: username?.toLocaleLowerCase(),
+        username: createUsername(username),
         website,
         avatar_url,
         updated_at: new Date().toISOString(),
@@ -155,7 +158,7 @@ export default function Account({ session }: { session: Session }) {
           onUpload={(url) => {
             setAvatarUrl(url)
             updateProfile({
-              username: formData.username,
+              username: createUsername(username),
               website: formData.website,
               avatar_url: url,
               full_name: formData.fullName,
@@ -186,11 +189,13 @@ export default function Account({ session }: { session: Session }) {
           <span className="label-text">Username</span>
         </label>
         <input
-          {...register('username')}
-          disabled={!!username}
+          value={username}
+          onChange={(e) => setUsername(createUsername(e.target.value))}
+          disabled={!!dbUsername}
           className={`input-bordered input-accent input w-full disabled:bg-base-300`}
           id="username"
           type="text"
+          minLength={3}
         />
       </div>
 
@@ -284,7 +289,7 @@ export default function Account({ session }: { session: Session }) {
       </div>
 
       <div className="my-4 flex justify-end gap-x-2">
-        {username && (
+        {dbUsername && (
           <div>
             <Link
               href={`/${formData.username}`}

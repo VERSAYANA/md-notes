@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { Database } from '../../utils/database.types'
 import { useRouter } from 'next/router'
 import EditNote from '../../components/EditNote'
+import { createUsername } from '../../utils/functions'
 
 type Profiles = Database['public']['Tables']['profiles']['Row']
 type Notes = Database['public']['Tables']['notes']['Row']
@@ -16,44 +17,45 @@ function NewNote() {
   const [isSaving, setIsSaving] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
-  useEffect(() => {
-    async function getUsername() {
-      try {
-        setIsLoading(true)
-        if (!user) throw new Error('No user')
+  async function getUsername() {
+    try {
+      setIsLoading(true)
+      if (!user) throw new Error('No user')
 
-        let { data, error, status } = await supabase
-          .from('profiles')
-          .select(`username`)
-          .eq('id', user.id)
-          .single()
+      let { data, error, status } = await supabase
+        .from('profiles')
+        .select(`username`)
+        .eq('id', user.id)
+        .single()
 
-        if (error && status !== 406) {
-          throw error
-        }
-        if (data) {
-          setUsername(data.username)
-        }
-      } catch (error) {
-        console.error(error)
-      } finally {
-        setIsLoading(false)
+      if (error && status !== 406) {
+        throw error
       }
+      if (data) {
+        setUsername(data.username)
+      }
+    } catch (error) {
+      console.error(error)
+    } finally {
+      setIsLoading(false)
     }
+  }
+
+  useEffect(() => {
     if (user) {
       getUsername()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
 
-  async function submitUsername(username: Profiles['username']) {
+  async function submitUsername(username: string) {
     try {
       setIsSaving(true)
       if (!user) throw new Error('No user')
 
       let { error } = await supabase
         .from('profiles')
-        .update({ username })
+        .update({ username: createUsername(username) })
         .eq('id', user.id)
 
       if (error) throw error
@@ -61,6 +63,7 @@ function NewNote() {
       console.error(error)
     } finally {
       setIsSaving(false)
+      getUsername()
     }
   }
 
@@ -156,7 +159,9 @@ function NewNote() {
               id="username"
               type="text"
               value={usernameInputValue || ''}
-              onChange={(e) => setUsernameInputValue(e.target.value)}
+              onChange={(e) =>
+                setUsernameInputValue(createUsername(e.target.value))
+              }
             />
           </div>
           <div>
