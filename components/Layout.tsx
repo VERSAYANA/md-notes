@@ -1,12 +1,10 @@
-import Navbar from './Navbar'
 import React, { ReactNode, useEffect, useState } from 'react'
-
-import Drawer from './Drawer'
 import Link from 'next/link'
-import { Edit, Edit2, FilePlus, LogIn, LogOut, User } from 'react-feather'
-import { useUser } from '@supabase/auth-ui-react/dist/esm/src/components/Auth/UserContext'
+import { Edit2, FilePlus, LogIn, LogOut, User } from 'react-feather'
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
-import { Database } from '../utils/database.types'
+
+import Navbar from './Navbar'
+import type { Database } from '@/utils/database.types'
 
 type Props = {
   children?: ReactNode

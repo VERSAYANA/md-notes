@@ -1,4 +1,3 @@
-import { useUser } from '@supabase/auth-ui-react/dist/esm/src/components/Auth/UserContext'
 import Link from 'next/link'
 import { FilePlus } from 'react-feather'
 

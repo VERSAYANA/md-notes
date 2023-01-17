@@ -5,10 +5,11 @@ import gfm from '@bytemd/plugin-gfm'
 import highlight from '@bytemd/plugin-highlight-ssr'
 import math from '@bytemd/plugin-math-ssr'
 import breaks from '@bytemd/plugin-breaks'
-import { formatTagString, tagsToSet } from '../utils/functions'
 import { X } from 'react-feather'
 import Link from 'next/link'
 import { useUser } from '@supabase/auth-helpers-react'
+
+import { tagsToSet, formatTagString } from '@/utils/functions'
 
 interface EditNoteFormInput {
   title: string
@@ -132,7 +133,7 @@ function EditNote({
                 <Link
                   href={`/notes/${id}`}
                   target="_blank"
-                  className={`btn btn-warning flex-1 shadow-sm`}
+                  className={`btn-warning btn flex-1 shadow-sm`}
                 >
                   View
                 </Link>
@@ -140,7 +141,7 @@ function EditNote({
 
               <button
                 type="submit"
-                className={`btn btn-accent flex-1 shadow-sm ${
+                className={`btn-accent btn flex-1 shadow-sm ${
                   isSaving ? 'loading' : ''
                 }`}
               >
@@ -199,7 +200,7 @@ function EditNote({
               }
             }}
             type="button"
-            className="btn btn-secondary rounded-full py-2 px-4 normal-case shadow-sm"
+            className="btn-secondary btn rounded-full py-2 px-4 normal-case shadow-sm"
           >
             Add new tag
           </button>

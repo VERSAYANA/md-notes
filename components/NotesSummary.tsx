@@ -1,11 +1,10 @@
 import Link from 'next/link'
 import { Eye, Lock } from 'react-feather'
-import { Database } from '../utils/database.types'
-import type { NoteSummary } from '../utils/types'
 import { useRouter } from 'next/router'
 
 import Avatar from './Avatar'
-import dayjs from '../utils/dayjs'
+import type { NoteSummary } from '@/utils/types'
+import dayjs from '@/utils/dayjs'
 
 type Props = {
   notes: NoteSummary[]

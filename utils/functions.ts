@@ -1,4 +1,4 @@
-import { GetNotesAPIResult, NoteSummary } from './types'
+import type { GetNotesAPIResult, NoteSummary } from './types'
 
 export function tagsToSet(tags: { name: string }[]): Set<string> {
   const tagsSet = new Set<string>()

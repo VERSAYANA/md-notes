@@ -1,8 +1,10 @@
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import EditNote from '../../../components/EditNote'
-import { Database } from '../../../utils/database.types'
+
+import EditNote from '@/components/EditNote'
+import type { Database } from '@/utils/database.types'
+
 type Note = Database['public']['Tables']['notes']['Row'] & {
   tags:
     | {

@@ -2,16 +2,17 @@ import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { Database } from '../utils/database.types'
 import { Viewer } from '@bytemd/react'
 import gfm from '@bytemd/plugin-gfm'
 import highlight from '@bytemd/plugin-highlight-ssr'
 import math from '@bytemd/plugin-math-ssr'
 import breaks from '@bytemd/plugin-breaks'
 import { Dialog } from '@headlessui/react'
+import { Edit, Trash2 } from 'react-feather'
+
 import Avatar from './Avatar'
-import dayjs from '../utils/dayjs'
-import { Delete, Edit, Trash, Trash2 } from 'react-feather'
+import type { Database } from '@/utils/database.types'
+import dayjs from '@/utils/dayjs'
 
 type Note = {
   id: string
@@ -129,7 +130,7 @@ function Notes({ id }: Props) {
                 <div className="flex items-center gap-x-2">
                   <button
                     onClick={() => setIsOpen(true)}
-                    className="btn-error btn m-0 h-12 w-12 gap-x-2 p-0 md:h-auto md:w-auto md:px-4"
+                    className="btn btn-error m-0 h-12 w-12 gap-x-2 p-0 md:h-auto md:w-auto md:px-4"
                   >
                     <Trash2 />
                     <span className="hidden md:block">Delete</span>
@@ -190,7 +191,7 @@ function Notes({ id }: Props) {
                 Cancel
               </button>
               <button
-                className={`btn-error btn ${isDeleting && 'loading'}`}
+                className={`btn btn-error ${isDeleting && 'loading'}`}
                 onClick={() => deleteNote()}
               >
                 Delete

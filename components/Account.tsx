@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
 import { useSupabaseClient, Session } from '@supabase/auth-helpers-react'
-import { Database } from '../utils/database.types'
-import Avatar from './Avatar'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import Link from 'next/link'
-import { createUsername } from '../utils/functions'
+
+import Avatar from './Avatar'
+import type { Database } from '@/utils/database.types'
+import { createUsername } from '@/utils/functions'
+
 type Profiles = Database['public']['Tables']['profiles']['Row']
 
 type ProfileInputs = {

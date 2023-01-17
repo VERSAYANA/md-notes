@@ -1,8 +1,9 @@
 import { GetServerSideProps } from 'next'
 import { ParsedUrlQuery } from 'querystring'
-import NotesSummary from '../../components/NotesSummary'
-import { supabase } from '../../utils/supabase'
-import { NoteSummary } from '../../utils/types'
+
+import NotesSummary from '@/components/NotesSummary'
+import { supabase } from '@/utils/supabase'
+import type { NoteSummary } from '@/utils/types'
 
 type Props = {
   notes: NoteSummary[]

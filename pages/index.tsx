@@ -1,6 +1,4 @@
 import Head from 'next/head'
-
-import { Auth, ThemeSupa } from '@supabase/auth-ui-react'
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'

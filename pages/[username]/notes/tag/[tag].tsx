@@ -1,9 +1,10 @@
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import NotesSummary from '../../../../components/NotesSummary'
-import { Database } from '../../../../utils/database.types'
-import { NoteSummary } from '../../../../utils/types'
+
+import NotesSummary from '@/components/NotesSummary'
+import type { Database } from '@/utils/database.types'
+import type { NoteSummary } from '@/utils/types'
 
 function UserNotesByTagPage() {
   const router = useRouter()

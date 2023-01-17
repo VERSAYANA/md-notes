@@ -1,7 +1,8 @@
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import Account from '../components/Account'
+
+import Account from '@/components/Account'
 
 function Profile() {
   const session = useSession()

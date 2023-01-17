@@ -1,11 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
-import { Database } from '../utils/database.types'
-import { ChevronDown, FilePlus, Home, LogIn, Menu, Plus } from 'react-feather'
-import Avatar from './Avatar'
-type Profiles = Database['public']['Tables']['profiles']['Row']
+import { ChevronDown, LogIn, Menu } from 'react-feather'
+
+import type { Database } from '@/utils/database.types'
 
 type Props = {
   username: string
@@ -36,7 +34,7 @@ function Navbar({ username }: Props) {
           ) : null} */}
         </div>
       </label>
-
+      1
       <ul
         tabIndex={0}
         className="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 text-base-content shadow"

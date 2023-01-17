@@ -1,9 +1,10 @@
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 import { useEffect, useState } from 'react'
-import { Database } from '../../utils/database.types'
 import { useRouter } from 'next/router'
-import EditNote from '../../components/EditNote'
-import { createUsername } from '../../utils/functions'
+
+import EditNote from '@/components/EditNote'
+import type { Database } from '@/utils/database.types'
+import { createUsername } from '@/utils/functions'
 
 type Profiles = Database['public']['Tables']['profiles']['Row']
 type Notes = Database['public']['Tables']['notes']['Row']
@@ -166,7 +167,7 @@ function NewNote() {
           </div>
           <div>
             <button
-              className={`btn btn-accent w-full ${isSaving ? 'loading' : ''}`}
+              className={`btn-accent btn w-full ${isSaving ? 'loading' : ''}`}
               onClick={() => submitUsername(usernameInputValue.toLowerCase())}
               disabled={isSaving}
             >

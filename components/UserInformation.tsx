@@ -5,9 +5,10 @@ import {
   Linkedin,
   Twitter,
 } from 'react-feather'
-import { Database } from '../utils/database.types'
-import { getValidUrlFromUsernameOrUrl } from '../utils/functions'
+
 import Avatar from './Avatar'
+import type { Database } from '@/utils/database.types'
+import { getValidUrlFromUsernameOrUrl } from '@/utils/functions'
 
 type Profiles = Database['public']['Tables']['profiles']['Row']
 

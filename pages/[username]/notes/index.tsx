@@ -1,10 +1,11 @@
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
-import NotesSummary from '../../../components/NotesSummary'
-import { Database } from '../../../utils/database.types'
-import { transformNotesSummaryData } from '../../../utils/functions'
-import type { NoteSummary } from '../../../utils/types'
+
+import NotesSummary from '@/components/NotesSummary'
+import type { Database } from '@/utils/database.types'
+import type { NoteSummary } from '@/utils/types'
+
 type Profiles = Database['public']['Tables']['profiles']['Row']
 
 function UserNotesPage() {
