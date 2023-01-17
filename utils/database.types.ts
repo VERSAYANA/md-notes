@@ -107,6 +107,10 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
+      delete_note_with_tags: {
+        Args: { n_note_id: string }
+        Returns: undefined
+      }
       get_note_by_id: {
         Args: { n_note_id: string }
         Returns: {

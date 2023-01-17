@@ -89,11 +89,13 @@ function Notes({ id }: Props) {
   async function deleteNote() {
     try {
       setIsDeleting(true)
-      const { error } = await supabase.from('notes').delete().eq('id', id)
+      const { error } = await supabase.rpc('delete_note_with_tags', {
+        n_note_id: id,
+      })
       if (error) {
         throw error
       } else {
-        router.push('/')
+        router.back()
       }
     } catch (error) {
       console.error(error)
@@ -130,7 +132,7 @@ function Notes({ id }: Props) {
                 <div className="flex items-center gap-x-2">
                   <button
                     onClick={() => setIsOpen(true)}
-                    className="btn btn-error m-0 h-12 w-12 gap-x-2 p-0 md:h-auto md:w-auto md:px-4"
+                    className="btn-error btn m-0 h-12 w-12 gap-x-2 p-0 md:h-auto md:w-auto md:px-4"
                   >
                     <Trash2 />
                     <span className="hidden md:block">Delete</span>
@@ -191,7 +193,7 @@ function Notes({ id }: Props) {
                 Cancel
               </button>
               <button
-                className={`btn btn-error ${isDeleting && 'loading'}`}
+                className={`btn-error btn ${isDeleting && 'loading'}`}
                 onClick={() => deleteNote()}
               >
                 Delete
