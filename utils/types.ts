@@ -11,6 +11,14 @@ export type NoteSummary = {
   avatar_url?: string
 }
 
+export type ToastType = '' | 'info' | 'success' | 'warning' | 'error'
+
+export type ToastDetails = {
+  hidden: boolean
+  message: string
+  type: ToastType
+}
+
 export type GetNotesAPIResult = ({
   id: string
 } & {

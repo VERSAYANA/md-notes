@@ -6,6 +6,7 @@ import Link from 'next/link'
 import Avatar from './Avatar'
 import type { Database } from '@/utils/database.types'
 import { createUsername } from '@/utils/functions'
+import { ToastDetails } from '@/utils/types'
 
 type Profiles = Database['public']['Tables']['profiles']['Row']
 
@@ -28,6 +29,11 @@ export default function Account({ session }: { session: Session }) {
   const [dbUsername, setDbUsername] = useState<Profiles['username']>(null)
   const [username, setUsername] = useState<string>('')
   const [avatar_url, setAvatarUrl] = useState<Profiles['avatar_url']>(null)
+  const [toast, setToast] = useState<ToastDetails>({
+    hidden: true,
+    message: '',
+    type: '',
+  })
   const {
     register,
     handleSubmit,
@@ -49,6 +55,11 @@ export default function Account({ session }: { session: Session }) {
       bio: formData.bio,
     })
   const formData = watch()
+
+  const toggleToast = (toastDetails: ToastDetails) => {
+    setToast(toastDetails)
+    setTimeout(() => setToast({ hidden: true, message: '', type: '' }), 1500)
+  }
 
   async function getProfile() {
     try {
@@ -82,7 +93,11 @@ export default function Account({ session }: { session: Session }) {
         setUsername(data.username || '')
       }
     } catch (error) {
-      alert('Error loading user data!')
+      toggleToast({
+        message: 'Error loading user data!',
+        type: 'error',
+        hidden: false,
+      })
       console.error(error)
     } finally {
       setLoading(false)
@@ -140,10 +155,18 @@ export default function Account({ session }: { session: Session }) {
 
       let { error } = await supabase.from('profiles').upsert(updates)
       if (error) throw error
-      alert('Profile updated!')
+      toggleToast({
+        message: 'Profile updated!',
+        type: 'success',
+        hidden: false,
+      })
       getProfile()
     } catch (error) {
-      alert('Error updating the data!')
+      toggleToast({
+        message: 'Error updating the data!',
+        type: 'error',
+        hidden: false,
+      })
       console.error(error)
     } finally {
       setLoading(false)
@@ -312,6 +335,17 @@ export default function Account({ session }: { session: Session }) {
           >
             {loading ? 'Saving ...' : 'Save'}
           </button>
+        </div>
+      </div>
+      <div
+        className={`toast-center toast toast-top z-10 w-80 text-center md:toast-bottom ${
+          toast.hidden ? 'hidden' : ''
+        }`}
+      >
+        <div className={`alert shadow-lg alert-${toast.type}`}>
+          <div className="flex w-full items-center">
+            <span className="w-full">{toast.message}</span>
+          </div>
         </div>
       </div>
     </form>
