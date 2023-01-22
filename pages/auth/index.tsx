@@ -29,6 +29,12 @@ function AuthPage() {
                 supabaseClient={supabase}
                 appearance={{
                   theme: ThemeSupa,
+                  className: {
+                    button: '!btn !btn-primary',
+                    input: '!input !input-bordered !text-base-content',
+                    label: '!label-text',
+                    anchor: '!link',
+                  },
                 }}
                 theme="default"
               />
