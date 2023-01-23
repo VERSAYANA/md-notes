@@ -16,7 +16,7 @@ function Navbar({ username }: Props) {
   const signInButton = (
     <Link
       href="/auth"
-      className="btn-ghost btn flex items-center gap-x-3 normal-case"
+      className="btn btn-ghost flex items-center gap-x-3 normal-case"
     >
       <LogIn size={24} />
       <span>Sign In / Sign Up</span>
@@ -25,13 +25,12 @@ function Navbar({ username }: Props) {
 
   const userDropDown = (
     <div className="dropdown-bottom dropdown">
-      <label tabIndex={0} className="btn-ghost btn">
+      <label tabIndex={0} className="btn btn-ghost">
         <div className="flex items-center gap-4">
           <ChevronDown size={24} />
           {<span>{username ? username : 'Profile'}</span>}
         </div>
       </label>
-      1
       <ul
         tabIndex={0}
         className="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 text-base-content shadow"

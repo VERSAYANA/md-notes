@@ -20,3 +20,7 @@ body,
 .markdown-body {
   @apply !container prose w-full;
 }
+
+.bytemd-toolbar-right [bytemd-tippy-path='5'] {
+  display: none;
+}
