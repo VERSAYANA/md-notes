@@ -90,7 +90,7 @@ function UserNotesPage() {
             <h3 className="text-lg font-bold md:text-xl lg:text-2xl">
               Most Recent Notes
             </h3>
-            <Link className="" href={`/${username}/notes`}>
+            <Link className="hover:link" href={`/${username}/notes`}>
               See more
             </Link>
           </div>
