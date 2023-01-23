@@ -88,7 +88,7 @@ export default function Layout({ children }: Props) {
         <aside className="flex h-full min-h-0 w-80 flex-col bg-base-100">
           <div className="flex h-16 w-full items-center px-4">
             <Link
-              className="btn btn-ghost w-full justify-start gap-x-3 text-base normal-case text-primary"
+              className="btn-ghost btn w-full justify-start gap-x-3 text-base normal-case text-primary"
               href="/notes/new"
             >
               <FilePlus size={24} />
@@ -104,18 +104,20 @@ export default function Layout({ children }: Props) {
                     <li>
                       <ActiveLink
                         activeClassName="active text-primary-content"
-                        className="flex justify-between text-base-content"
+                        className="group flex justify-between text-base-content"
                         href={`/${username}/notes`}
                       >
                         <span>All</span>
-                        <span className="opacity-75">{userNotesCount}</span>
+                        <span className="text-base-content/60 group-[.active]:text-primary-content/75">
+                          {userNotesCount}
+                        </span>
                       </ActiveLink>
                     </li>
                     {tagsWithNoteCount.map((tagWithNoteCount) => (
                       <li key={tagWithNoteCount.tag_name}>
                         <ActiveLink
                           activeClassName="active text-primary-content"
-                          className="flex justify-between text-base-content"
+                          className="group flex justify-between text-base-content"
                           href={`/${encodeURIComponent(
                             username
                           )}/notes/tag/${encodeURIComponent(
@@ -123,7 +125,7 @@ export default function Layout({ children }: Props) {
                           )}`}
                         >
                           <span>{tagWithNoteCount.tag_name}</span>
-                          <span className="opacity-80">
+                          <span className="text-base-content/60 group-[.active]:text-primary-content/75">
                             {tagWithNoteCount.notes_count}
                           </span>
                         </ActiveLink>
@@ -139,7 +141,7 @@ export default function Layout({ children }: Props) {
               <>
                 <div className="flex h-16 w-full items-center px-4">
                   <Link
-                    className="btn btn-ghost w-full justify-start  gap-x-3 text-base normal-case text-primary"
+                    className="btn-ghost btn w-full justify-start  gap-x-3 text-base normal-case text-primary"
                     href={username ? `/${username}` : `/profile`}
                   >
                     <User size={24} />
@@ -150,7 +152,7 @@ export default function Layout({ children }: Props) {
                 </div>
                 <div className="flex h-16 w-full items-center px-4">
                   <Link
-                    className="btn btn-ghost w-full justify-start  gap-x-3 text-base normal-case text-primary"
+                    className="btn-ghost btn w-full justify-start  gap-x-3 text-base normal-case text-primary"
                     href="/profile"
                   >
                     <Edit2 size={24} />
@@ -162,7 +164,7 @@ export default function Layout({ children }: Props) {
                 <div className="flex h-16 w-full items-center px-4">
                   <button
                     onClick={() => supabase.auth.signOut()}
-                    className="btn btn-ghost w-full justify-start  gap-x-3 text-base normal-case text-primary"
+                    className="btn-ghost btn w-full justify-start  gap-x-3 text-base normal-case text-primary"
                   >
                     <LogOut size={24} />
                     <span className="font-normal">Log out</span>
@@ -174,7 +176,7 @@ export default function Layout({ children }: Props) {
                 <div className="flex h-16 w-full items-center px-4">
                   <Link
                     href={'/anonymous'}
-                    className="btn btn-ghost w-full justify-start  gap-x-3 text-base normal-case text-primary"
+                    className="btn-ghost btn w-full justify-start  gap-x-3 text-base normal-case text-primary"
                   >
                     <User size={24} />
                     <span className="font-normal uppercase">Anonymous</span>
@@ -182,7 +184,7 @@ export default function Layout({ children }: Props) {
                 </div>
                 <div className="flex h-16 w-full items-center px-4">
                   <Link
-                    className="btn btn-ghost w-full justify-start  gap-x-3 text-base normal-case text-primary"
+                    className="btn-ghost btn w-full justify-start  gap-x-3 text-base normal-case text-primary"
                     href="/auth"
                   >
                     <LogIn size={24} />

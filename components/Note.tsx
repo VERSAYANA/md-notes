@@ -71,13 +71,13 @@ function Notes({ note }: Props) {
                   {note.full_name ? note.full_name : note.username || ''}
                 </span>
               </Link>
-              <p className="flex h-full items-center justify-end text-sm opacity-70">
+              <p className="flex h-full items-center justify-end text-sm text-base-content/70 md:text-base">
                 {dayjs(note.updated_at).fromNow(true)} ago
               </p>
             </div>
             <div className="mb-6 flex items-center justify-between gap-x-2">
               <div className="flex flex-1">
-                <h2 className="text-lg font-bold md:text-xl lg:text-3xl">
+                <h2 className="text-lg font-bold md:text-xl lg:text-2xl 2xl:text-3xl">
                   {note.title}
                 </h2>
               </div>
@@ -85,7 +85,7 @@ function Notes({ note }: Props) {
                 <div className="flex items-center gap-x-2">
                   <button
                     onClick={() => setIsOpen(true)}
-                    className="btn btn-error m-0 h-12 w-12 gap-x-2 p-0 md:h-auto md:w-auto md:px-4"
+                    className="btn-error btn m-0 h-12 w-12 gap-x-2 p-0 md:h-auto md:w-auto md:px-4"
                   >
                     <Trash2 />
                     <span className="hidden md:block">Delete</span>
@@ -129,10 +129,10 @@ function Notes({ note }: Props) {
         <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
         <div className="fixed inset-0 flex items-center  justify-center p-4">
           <Dialog.Panel className="w-full max-w-lg rounded-lg bg-base-200">
-            <Dialog.Title className="px-4 pt-4 text-lg font-bold md:px-6">
+            <Dialog.Title className="px-4 pt-4 text-lg font-bold md:px-6 lg:text-xl">
               Delete note
             </Dialog.Title>
-            <Dialog.Description className="p-4 opacity-80 md:px-6">
+            <Dialog.Description className="p-4 pt-3 text-base-content/75 md:px-6">
               Are you sure you want to delete this note?
               <br />
               This note will be permanently removed.
@@ -146,7 +146,7 @@ function Notes({ note }: Props) {
                 Cancel
               </button>
               <button
-                className={`btn btn-error ${isDeleting && 'loading'}`}
+                className={`btn-error btn ${isDeleting && 'loading'}`}
                 onClick={() => {
                   if (id) deleteNote(id)
                 }}

@@ -32,7 +32,7 @@ function NotesSummary({
                 {note.full_name ? note.full_name : note.username || ''}
               </span>
             </Link>
-            <p className="flex h-full flex-1 items-center justify-end opacity-70">
+            <p className="flex h-full flex-1 items-center justify-end text-sm text-base-content/70 md:text-base">
               {dayjs(note.updated_at).fromNow(true)} ago
             </p>
           </div>
