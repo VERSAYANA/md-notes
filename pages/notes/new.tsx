@@ -44,7 +44,7 @@ function NewNote() {
   }
 
   useEffect(() => {
-    if (user) {
+    if (user && !username) {
       getUsername()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -168,7 +168,7 @@ function NewNote() {
           </div>
           <div>
             <button
-              className={`btn-accent btn w-full ${isSaving ? 'loading' : ''}`}
+              className={`btn btn-accent w-full ${isSaving ? 'loading' : ''}`}
               onClick={() => submitUsername(usernameInputValue.toLowerCase())}
               disabled={isSaving}
             >
