@@ -145,7 +145,7 @@ function EditNote({
                   isSaving ? 'loading' : ''
                 }`}
               >
-                {isPublicState ? 'Publish' : 'Save'}
+                {isSaving ? '' : 'Save'}
               </button>
             </div>
           </div>
