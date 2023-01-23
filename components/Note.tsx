@@ -66,7 +66,7 @@ function Notes({ note }: Props) {
                 href={`/${note.username ? note.username : ''}`}
                 className="flex h-12 gap-x-4"
               >
-                <Avatar url={note.avatar_url || ''} height={48} width={48} />
+                <Avatar url={note.avatar_url || ''} height={56} width={56} />
                 <span className="text-md flex h-full items-center md:text-lg">
                   {note.full_name ? note.full_name : note.username || ''}
                 </span>
@@ -146,7 +146,7 @@ function Notes({ note }: Props) {
                 Cancel
               </button>
               <button
-                className={`btn-error btn ${isDeleting && 'loading'}`}
+                className={`btn btn-error ${isDeleting && 'loading'}`}
                 onClick={() => {
                   if (id) deleteNote(id)
                 }}

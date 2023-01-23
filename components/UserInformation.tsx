@@ -17,7 +17,7 @@ type Props = {
 }
 function UserInformation({ profile }: Props) {
   return (
-    <section className="flex flex-1 flex-col">
+    <section className="flex flex-1 flex-col text-base-content">
       <Avatar url={profile.avatar_url || ''} />
       <div className="mt-4 flex flex-col items-center justify-center">
         {profile.full_name && (
@@ -27,13 +27,13 @@ function UserInformation({ profile }: Props) {
           <p className="text-base">@{profile.username.toUpperCase()}</p>
         )}
         {profile.bio && (
-          <p className="mt-3 text-base opacity-90">{profile.bio}</p>
+          <p className="mt-3 text-base text-base-content/90">{profile.bio}</p>
         )}
       </div>
 
       <div className="my-5 flex items-center justify-center gap-2">
         {profile.twitter && (
-          <button className="btn-ghost btn btn-square">
+          <button className="btn btn-ghost btn-square">
             <a
               href={`${getValidUrlFromUsernameOrUrl(
                 profile.twitter,
@@ -47,7 +47,7 @@ function UserInformation({ profile }: Props) {
           </button>
         )}
         {profile.github && (
-          <button className="btn-ghost btn btn-square">
+          <button className="btn btn-ghost btn-square">
             <a
               href={`${getValidUrlFromUsernameOrUrl(
                 profile.github,
@@ -61,7 +61,7 @@ function UserInformation({ profile }: Props) {
           </button>
         )}
         {profile.linkedin && (
-          <button className="btn-ghost btn btn-square">
+          <button className="btn btn-ghost btn-square">
             <a
               href={`${getValidUrlFromUsernameOrUrl(
                 profile.linkedin,
@@ -75,7 +75,7 @@ function UserInformation({ profile }: Props) {
           </button>
         )}
         {profile.instagram && (
-          <button className="btn-ghost btn btn-square">
+          <button className="btn btn-ghost btn-square">
             <a
               href={`${getValidUrlFromUsernameOrUrl(
                 profile.instagram,
