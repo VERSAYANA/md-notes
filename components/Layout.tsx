@@ -2,10 +2,12 @@ import React, { ReactNode, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Edit2, FilePlus, LogIn, LogOut, User } from 'react-feather'
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
+import { Inter } from '@next/font/google'
 
 import Navbar from './Navbar'
 import type { Database } from '@/utils/database.types'
 import ActiveLink from './ActiveLink'
+const inter = Inter({ subsets: ['latin'] })
 
 type Props = {
   children?: ReactNode
@@ -77,7 +79,7 @@ export default function Layout({ children }: Props) {
   }, [session?.user])
 
   return (
-    <div className="drawer-mobile drawer">
+    <div className={`drawer-mobile drawer ${inter.className}`}>
       <input id="drawer" className="drawer-toggle" type="checkbox" />
       <div className="drawer-content overflow-x-hidden">
         <Navbar username={username} />
