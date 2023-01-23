@@ -77,13 +77,15 @@ function Notes({ note }: Props) {
             </div>
             <div className="mb-6 flex items-center justify-between gap-x-2">
               <div className="flex flex-1">
-                <h2 className="text-lg font-bold md:text-xl">{note.title}</h2>
+                <h2 className="text-lg font-bold md:text-xl lg:text-3xl">
+                  {note.title}
+                </h2>
               </div>
               {user && note.user_id === user.id ? (
                 <div className="flex items-center gap-x-2">
                   <button
                     onClick={() => setIsOpen(true)}
-                    className="btn-error btn m-0 h-12 w-12 gap-x-2 p-0 md:h-auto md:w-auto md:px-4"
+                    className="btn btn-error m-0 h-12 w-12 gap-x-2 p-0 md:h-auto md:w-auto md:px-4"
                   >
                     <Trash2 />
                     <span className="hidden md:block">Delete</span>

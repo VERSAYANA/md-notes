@@ -25,10 +25,10 @@ function NotesSummary({
           <div className="flex items-center gap-x-4">
             <Link
               href={`/${note.username ? note.username : ''}`}
-              className="flex h-12 gap-x-4"
+              className="flex h-12 gap-x-3 md:gap-x-4"
             >
               <Avatar url={note.avatar_url || ''} height={48} width={48} />
-              <span className="flex h-full items-center text-lg">
+              <span className="flex h-full items-center text-base md:text-lg">
                 {note.full_name ? note.full_name : note.username || ''}
               </span>
             </Link>
@@ -40,9 +40,13 @@ function NotesSummary({
             href={`/notes/${note.id}`}
             className="flex items-center justify-between py-3"
           >
-            <h2 className="text-xl font-bold">{note.title}</h2>
+            <h2 className="flex flex-wrap text-lg font-bold md:text-xl">
+              {note.title}
+            </h2>
             {showPublicPrivate && (
-              <div className="flex">{note.is_public ? <Eye /> : <Lock />}</div>
+              <div className="flex px-2">
+                {note.is_public ? <Eye /> : <Lock />}
+              </div>
             )}
           </Link>
 

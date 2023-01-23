@@ -87,7 +87,9 @@ function UserNotesPage() {
         {profile && <UserInformation profile={profile} />}
         <section className="flex w-full flex-col">
           <div className="mb-4 mt-8 flex w-full items-center justify-between px-4">
-            <h3 className="text-2xl font-bold">Most Recent Notes</h3>
+            <h3 className="text-lg font-bold md:text-xl lg:text-2xl">
+              Most Recent Notes
+            </h3>
             <Link className="" href={`/${username}/notes`}>
               See more
             </Link>
