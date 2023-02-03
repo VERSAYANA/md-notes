@@ -2,6 +2,14 @@
 
 [**Write public, private or even anonymous notes using Markdown**](https://md-notes-sage.vercel.app/)
 
+### Features
+
+- Write & share anonymous notes without an account
+- Make a profile to share public notes in your name
+- Write private notes
+- Organize your notes using tags
+- Find other public notes using tags
+
 ### Tech Stack
 
 - Next.js
