@@ -4,7 +4,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <link rel="icon" href="/logo6.png" />
+        <link rel="icon" href="/icon.png" />
 
         {/* Open graph */}
         <meta property="og:title" content="Markdown Notes" />
