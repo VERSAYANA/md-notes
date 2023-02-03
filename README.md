@@ -1,6 +1,6 @@
 ## Markdown Notes
 
-[**Write public, private or even anonymous notes using Markdown**](https://md-notes-sage.vercel.app/)
+[**Write public, private or even anonymous notes using Markdown**](https://notes-md.vercel.app)
 
 ### Features
 
