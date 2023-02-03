@@ -1,34 +1,25 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Markdown Notes
 
-## Getting Started
+[**Write public, private or even anonymous notes using Markdown**](https://md-notes-sage.vercel.app/)
 
-First, run the development server:
+### Tech Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+- Next.js
+- TypeScript
+- Supabase
+- Tailwindcss
+- daisyUI
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Screenshots
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![Screenshot 1](https://raw.githubusercontent.com/VERSAYANA/md-notes/main/screenshots/1.png)
+![Screenshot 2](https://raw.githubusercontent.com/VERSAYANA/md-notes/main/screenshots/2.png)
+![Screenshot 3](https://raw.githubusercontent.com/VERSAYANA/md-notes/main/screenshots/3.png)
+![Screenshot 4](https://raw.githubusercontent.com/VERSAYANA/md-notes/main/screenshots/4.png)
+![Screenshot 5](https://raw.githubusercontent.com/VERSAYANA/md-notes/main/screenshots/5.png)
+![Screenshot 6](https://raw.githubusercontent.com/VERSAYANA/md-notes/main/screenshots/6.png)
+![Screenshot 7](https://raw.githubusercontent.com/VERSAYANA/md-notes/main/screenshots/7.png)
+![Screenshot 8](https://raw.githubusercontent.com/VERSAYANA/md-notes/main/screenshots/8.png)
+![Screenshot 9](https://raw.githubusercontent.com/VERSAYANA/md-notes/main/screenshots/9.png)
+![Screenshot 10](https://raw.githubusercontent.com/VERSAYANA/md-notes/main/screenshots/10.png)
+![Screenshot 11](https://raw.githubusercontent.com/VERSAYANA/md-notes/main/screenshots/11.png)
